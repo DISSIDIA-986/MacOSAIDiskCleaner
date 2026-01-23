@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 struct AIConfiguration: Sendable, Hashable {
     var baseURL: URL
@@ -32,7 +33,9 @@ actor AIAnalyzer {
 
         let (templateId, prompt) = promptManager.makePrompt(context: context)
         let sanitizedPath = PathSanitizer.sanitize(context.path)
-        let cacheKey = "\(templateId)|\(sanitizedPath)"
+        // Use glob pattern for cache key (per implementation plan)
+        let globPattern = makeGlobPattern(for: context.path, matchedRule: context.matchedRuleId)
+        let cacheKey = "\(templateId)|\(globPattern)"
 
         if let cached = await cache.get(key: cacheKey) {
             return cached
@@ -44,14 +47,47 @@ actor AIAnalyzer {
             do {
                 return try await client.analyzeJSON(apiKey: apiKey, prompt: prompt)
             } catch {
-                // Retry once with a stricter instruction
-                let retryPrompt = prompt + "\n\nIMPORTANT: Return ONLY valid JSON matching the schema. No markdown, no commentary."
-                return try await client.analyzeJSON(apiKey: apiKey, prompt: retryPrompt)
+                // Retry once with explicit JSON format instruction (per implementation plan)
+                Logger.ai.info("First attempt failed, retrying with stricter JSON instruction")
+                let retryPrompt = prompt + "\n\nIMPORTANT: You must return ONLY valid JSON matching the exact schema. Do not wrap in markdown code blocks, do not add commentary before or after the JSON. Return the JSON object directly."
+                do {
+                    return try await client.analyzeJSON(apiKey: apiKey, prompt: retryPrompt)
+                } catch {
+                    // Still failed after retry - log and rethrow
+                    Logger.ai.error("JSON parsing failed after retry: \(error.localizedDescription)")
+                    throw DiskCleanerError.aiRequestFailed(error)
+                }
             }
         }
 
         await cache.put(key: cacheKey, analysis: result)
         return result
+    }
+    
+    /// Convert a file path to a glob pattern for caching purposes.
+    /// If a rule matched, use its pattern; otherwise generate a generic pattern.
+    private func makeGlobPattern(for path: String, matchedRule: String?) -> String {
+        // If we have a matched rule, try to find its pattern
+        if let ruleId = matchedRule,
+           let rule = BuiltInRules.all.first(where: { $0.id == ruleId }) {
+            return rule.pattern
+        }
+        
+        // Fallback: generate a generic pattern based on path structure
+        let components = (path as NSString).pathComponents
+        guard !components.isEmpty else { return "**/*" }
+        
+        // For common patterns, use known globs
+        if let cacheIdx = components.firstIndex(of: "Caches") {
+            let afterCache = components.suffix(from: cacheIdx + 1)
+            if !afterCache.isEmpty {
+                return "**/Caches/**/\(afterCache.last ?? "*")"
+            }
+        }
+        
+        // Generic: use last component with ** prefix
+        let last = components.last ?? "*"
+        return "**/\(last)"
     }
 }
 

@@ -171,4 +171,40 @@ actor FileScanner {
         }
         return false
     }
+    
+    /// Quick estimate of total files in directory (for progress percentage).
+    /// Uses skipDescendants to avoid deep traversal.
+    nonisolated func estimateTotalFiles(root: URL) async -> Int {
+        let rootPath = (root.path as NSString).standardizingPath
+        guard !Self.isProtectedSystemPath(rootPath) else { return 0 }
+        
+        return await withCheckedContinuation { continuation in
+            Task.detached {
+                var count = 0
+                let fm = FileManager.default
+                guard let enumerator = fm.enumerator(
+                    at: root,
+                    includingPropertiesForKeys: [.isDirectoryKey],
+                    options: [.skipsHiddenFiles, .skipsPackageDescendants]
+                ) else {
+                    continuation.resume(returning: 0)
+                    return
+                }
+                
+                while let url = enumerator.nextObject() as? URL {
+                    if Task.isCancelled { break }
+                    count += 1
+                    // Skip descendants for directories to speed up estimation
+                    if let isDir = (try? url.resourceValues(forKeys: [.isDirectoryKey]))?.isDirectory, isDir {
+                        enumerator.skipDescendants()
+                    }
+                    // Limit estimation to avoid long delays
+                    if count >= 10_000 {
+                        break
+                    }
+                }
+                continuation.resume(returning: count)
+            }
+        }
+    }
 }
