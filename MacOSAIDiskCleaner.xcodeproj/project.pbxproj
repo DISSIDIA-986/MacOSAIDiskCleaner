@@ -43,6 +43,7 @@
 		AA0000250000000000000029 /* AuditLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000023 /* AuditLog.swift */; };
 		AA000026000000000000002A /* TrashManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000024 /* TrashManager.swift */; };
 		AA000027000000000000002B /* UpdateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000025 /* UpdateManager.swift */; };
+		AA000028000000000000002C /* AuditLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000026 /* AuditLogView.swift */; };
 
 		AA00000B000000000000000B /* ScannerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0002010000000000000001 /* ScannerTests.swift */; };
 		AA0000140000000000000018 /* RuleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0002010000000000000003 /* RuleTests.swift */; };
@@ -95,6 +96,7 @@
 		AA0001010000000000000023 /* AuditLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Trash/AuditLog.swift; sourceTree = "<group>"; };
 		AA0001010000000000000024 /* TrashManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Trash/TrashManager.swift; sourceTree = "<group>"; };
 		AA0001010000000000000025 /* UpdateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Updates/UpdateManager.swift; sourceTree = "<group>"; };
+		AA0001010000000000000026 /* AuditLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/AuditLogView.swift; sourceTree = "<group>"; };
 
 		AA000101000000000000000A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AA000101000000000000000B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				AA0001010000000000000023 /* AuditLog.swift */,
 				AA0001010000000000000024 /* TrashManager.swift */,
 				AA0001010000000000000025 /* UpdateManager.swift */,
+				AA0001010000000000000026 /* AuditLogView.swift */,
 				AA000101000000000000000B /* Info.plist */,
 			);
 		};
@@ -365,6 +368,7 @@
 				AA0000250000000000000029 /* AuditLog.swift in Sources */,
 				AA000026000000000000002A /* TrashManager.swift in Sources */,
 				AA000027000000000000002B /* UpdateManager.swift in Sources */,
+				AA000028000000000000002C /* AuditLogView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
