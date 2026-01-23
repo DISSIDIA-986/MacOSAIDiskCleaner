@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @ObservedObject var viewModel: SettingsViewModel
+    @State private var showAuditLog = false
 
     var body: some View {
         Form {
@@ -28,6 +29,7 @@ struct SettingsView: View {
 
             Section("Safety") {
                 Toggle("Dry Run (do not change filesystem)", isOn: $viewModel.dryRun)
+                Button("View Audit Log") { showAuditLog = true }
             }
 
             Section("Privacy") {
@@ -37,6 +39,9 @@ struct SettingsView: View {
         }
         .padding(16)
         .frame(width: 540)
+        .sheet(isPresented: $showAuditLog) {
+            AuditLogView()
+        }
     }
 }
 
