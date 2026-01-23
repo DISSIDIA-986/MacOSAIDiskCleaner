@@ -1,0 +1,550 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AA0000010000000000000001 /* MacOSAIDiskCleanerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000001 /* MacOSAIDiskCleanerApp.swift */; };
+		AA0000020000000000000002 /* ScannedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000002 /* ScannedItem.swift */; };
+		AA0000030000000000000003 /* BatchUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000003 /* BatchUpdater.swift */; };
+		AA0000040000000000000004 /* PermissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000004 /* PermissionManager.swift */; };
+		AA0000050000000000000005 /* FileScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000005 /* FileScanner.swift */; };
+		AA0000060000000000000006 /* DiskCleanerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000006 /* DiskCleanerViewModel.swift */; };
+		AA0000070000000000000007 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000007 /* MainView.swift */; };
+		AA0000080000000000000008 /* PermissionOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000008 /* PermissionOnboardingView.swift */; };
+		AA0000090000000000000009 /* DiskUsageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000009 /* DiskUsageHeaderView.swift */; };
+		AA00000A000000000000000A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000000A /* Assets.xcassets */; };
+		AA00000C000000000000000C /* DiskCleanerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000000C /* DiskCleanerError.swift */; };
+		AA00000D000000000000000D /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000000D /* Logger.swift */; };
+		AA00000E000000000000000E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000000E /* PrivacyInfo.xcprivacy */; };
+		AA00000F000000000000000F /* RiskLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000000F /* RiskLevel.swift */; };
+		AA0000100000000000000014 /* CleanupRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000010 /* CleanupRule.swift */; };
+		AA0000110000000000000015 /* RuleMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000011 /* RuleMatch.swift */; };
+		AA0000120000000000000016 /* RuleMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000012 /* RuleMatcher.swift */; };
+		AA0000130000000000000017 /* BuiltInRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000013 /* BuiltInRules.swift */; };
+		AA0000150000000000000019 /* AnalysisContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000014 /* AnalysisContext.swift */; };
+		AA000016000000000000001A /* PromptTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000015 /* PromptTemplate.swift */; };
+		AA000017000000000000001B /* PathSanitizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000016 /* PathSanitizer.swift */; };
+		AA000018000000000000001C /* Templates.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000017 /* Templates.swift */; };
+		AA000019000000000000001D /* PromptManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000018 /* PromptManager.swift */; };
+		AA00001B000000000000001F /* AIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000019 /* AIModels.swift */; };
+		AA00001C0000000000000020 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000001A /* KeychainManager.swift */; };
+		AA00001D0000000000000021 /* AIRequestQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000001B /* AIRequestQueue.swift */; };
+		AA00001E0000000000000022 /* AIAnalysisCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000001C /* AIAnalysisCache.swift */; };
+		AA00001F0000000000000023 /* LLMClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000001D /* LLMClient.swift */; };
+		AA0000200000000000000024 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000001E /* SettingsViewModel.swift */; };
+		AA0000210000000000000025 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000001F /* SettingsView.swift */; };
+		AA0000220000000000000026 /* AIAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000020 /* AIAnalyzer.swift */; };
+		AA0000230000000000000027 /* CandidateItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000021 /* CandidateItem.swift */; };
+		AA0000240000000000000028 /* TrashRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000022 /* TrashRecord.swift */; };
+		AA0000250000000000000029 /* AuditLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000023 /* AuditLog.swift */; };
+		AA000026000000000000002A /* TrashManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000024 /* TrashManager.swift */; };
+		AA000027000000000000002B /* UpdateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000025 /* UpdateManager.swift */; };
+
+		AA00000B000000000000000B /* ScannerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0002010000000000000001 /* ScannerTests.swift */; };
+		AA0000140000000000000018 /* RuleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0002010000000000000003 /* RuleTests.swift */; };
+		AA00001A000000000000001E /* PromptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0002010000000000000004 /* PromptTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AA0003000000000000000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA0000000000000000000000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA0000100000000000000010;
+			remoteInfo = MacOSAIDiskCleaner;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		AA0001010000000000000001 /* MacOSAIDiskCleanerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSAIDiskCleanerApp.swift; sourceTree = "<group>"; };
+		AA0001010000000000000002 /* ScannedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedItem.swift; sourceTree = "<group>"; };
+		AA0001010000000000000003 /* BatchUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchUpdater.swift; sourceTree = "<group>"; };
+		AA0001010000000000000004 /* PermissionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/Permissions/PermissionManager.swift; sourceTree = "<group>"; };
+		AA0001010000000000000005 /* FileScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Scanner/FileScanner.swift; sourceTree = "<group>"; };
+		AA0001010000000000000006 /* DiskCleanerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskCleanerViewModel.swift; sourceTree = "<group>"; };
+		AA0001010000000000000007 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		AA0001010000000000000008 /* PermissionOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionOnboardingView.swift; sourceTree = "<group>"; };
+		AA0001010000000000000009 /* DiskUsageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskUsageHeaderView.swift; sourceTree = "<group>"; };
+		AA000101000000000000000C /* DiskCleanerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/Errors/DiskCleanerError.swift; sourceTree = "<group>"; };
+		AA000101000000000000000D /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/Logging/Logger.swift; sourceTree = "<group>"; };
+		AA000101000000000000000E /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Config/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		AA000101000000000000000F /* RiskLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Rules/RiskLevel.swift; sourceTree = "<group>"; };
+		AA0001010000000000000010 /* CleanupRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Rules/CleanupRule.swift; sourceTree = "<group>"; };
+		AA0001010000000000000011 /* RuleMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Rules/RuleMatch.swift; sourceTree = "<group>"; };
+		AA0001010000000000000012 /* RuleMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Rules/RuleMatcher.swift; sourceTree = "<group>"; };
+		AA0001010000000000000013 /* BuiltInRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Rules/BuiltInRules.swift; sourceTree = "<group>"; };
+		AA0001010000000000000014 /* AnalysisContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/Prompts/AnalysisContext.swift; sourceTree = "<group>"; };
+		AA0001010000000000000015 /* PromptTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/Prompts/PromptTemplate.swift; sourceTree = "<group>"; };
+		AA0001010000000000000016 /* PathSanitizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/Prompts/PathSanitizer.swift; sourceTree = "<group>"; };
+		AA0001010000000000000017 /* Templates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/Prompts/Templates.swift; sourceTree = "<group>"; };
+		AA0001010000000000000018 /* PromptManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/Prompts/PromptManager.swift; sourceTree = "<group>"; };
+		AA0001010000000000000019 /* AIModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/Client/AIModels.swift; sourceTree = "<group>"; };
+		AA000101000000000000001A /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/Client/KeychainManager.swift; sourceTree = "<group>"; };
+		AA000101000000000000001B /* AIRequestQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/Client/AIRequestQueue.swift; sourceTree = "<group>"; };
+		AA000101000000000000001C /* AIAnalysisCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/Client/AIAnalysisCache.swift; sourceTree = "<group>"; };
+		AA000101000000000000001D /* LLMClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/Client/LLMClient.swift; sourceTree = "<group>"; };
+		AA000101000000000000001E /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModels/SettingsViewModel.swift; sourceTree = "<group>"; };
+		AA000101000000000000001F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/SettingsView.swift; sourceTree = "<group>"; };
+		AA0001010000000000000020 /* AIAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/AIAnalyzer.swift; sourceTree = "<group>"; };
+		AA0001010000000000000021 /* CandidateItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateItem.swift; sourceTree = "<group>"; };
+		AA0001010000000000000022 /* TrashRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Trash/TrashRecord.swift; sourceTree = "<group>"; };
+		AA0001010000000000000023 /* AuditLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Trash/AuditLog.swift; sourceTree = "<group>"; };
+		AA0001010000000000000024 /* TrashManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Trash/TrashManager.swift; sourceTree = "<group>"; };
+		AA0001010000000000000025 /* UpdateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Updates/UpdateManager.swift; sourceTree = "<group>"; };
+
+		AA000101000000000000000A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AA000101000000000000000B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+
+		AA0002000000000000000000 /* MacOSAIDiskCleaner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = MacOSAIDiskCleaner.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA0002010000000000000000 /* MacOSAIDiskCleanerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = MacOSAIDiskCleanerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+
+		AA0002010000000000000001 /* ScannerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerTests.swift; sourceTree = "<group>"; };
+		AA0002010000000000000002 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA0002010000000000000003 /* RuleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleTests.swift; sourceTree = "<group>"; };
+		AA0002010000000000000004 /* PromptTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AA0000120000000000000012 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA0000220000000000000022 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AA0000F000000000000000F0 /* MacOSAIDiskCleaner */ = {
+			isa = PBXGroup;
+			children = (
+				AA0000F100000000000000F1 /* MacOSAIDiskCleaner */,
+				AA0000F200000000000000F2 /* MacOSAIDiskCleanerTests */,
+				AA0000FF00000000000000FF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+
+		AA0000F100000000000000F1 /* MacOSAIDiskCleaner */ = {
+			isa = PBXGroup;
+			path = MacOSAIDiskCleaner;
+			sourceTree = "<group>";
+			children = (
+				AA0001010000000000000001 /* MacOSAIDiskCleanerApp.swift */,
+				AA0000F11000000000000010 /* Models */,
+				AA0000F12000000000000020 /* ViewModels */,
+				AA0000F13000000000000030 /* Views */,
+				AA0000F14000000000000040 /* Services */,
+				AA0000F15000000000000050 /* Utils */,
+				AA000101000000000000000A /* Assets.xcassets */,
+				AA000101000000000000000C /* DiskCleanerError.swift */,
+				AA000101000000000000000D /* Logger.swift */,
+				AA000101000000000000000E /* PrivacyInfo.xcprivacy */,
+				AA000101000000000000000F /* RiskLevel.swift */,
+				AA0001010000000000000010 /* CleanupRule.swift */,
+				AA0001010000000000000011 /* RuleMatch.swift */,
+				AA0001010000000000000012 /* RuleMatcher.swift */,
+				AA0001010000000000000013 /* BuiltInRules.swift */,
+				AA0001010000000000000014 /* AnalysisContext.swift */,
+				AA0001010000000000000015 /* PromptTemplate.swift */,
+				AA0001010000000000000016 /* PathSanitizer.swift */,
+				AA0001010000000000000017 /* Templates.swift */,
+				AA0001010000000000000018 /* PromptManager.swift */,
+				AA0001010000000000000019 /* AIModels.swift */,
+				AA000101000000000000001A /* KeychainManager.swift */,
+				AA000101000000000000001B /* AIRequestQueue.swift */,
+				AA000101000000000000001C /* AIAnalysisCache.swift */,
+				AA000101000000000000001D /* LLMClient.swift */,
+				AA000101000000000000001E /* SettingsViewModel.swift */,
+				AA000101000000000000001F /* SettingsView.swift */,
+				AA0001010000000000000020 /* AIAnalyzer.swift */,
+				AA0001010000000000000022 /* TrashRecord.swift */,
+				AA0001010000000000000023 /* AuditLog.swift */,
+				AA0001010000000000000024 /* TrashManager.swift */,
+				AA0001010000000000000025 /* UpdateManager.swift */,
+				AA000101000000000000000B /* Info.plist */,
+			);
+		};
+
+		AA0000F11000000000000010 /* Models */ = {
+			isa = PBXGroup;
+			path = Models;
+			sourceTree = "<group>";
+			children = (
+				AA0001010000000000000002 /* ScannedItem.swift */,
+				AA0001010000000000000021 /* CandidateItem.swift */,
+			);
+		};
+		AA0000F12000000000000020 /* ViewModels */ = {
+			isa = PBXGroup;
+			path = ViewModels;
+			sourceTree = "<group>";
+			children = (
+				AA0001010000000000000006 /* DiskCleanerViewModel.swift */,
+			);
+		};
+		AA0000F13000000000000030 /* Views */ = {
+			isa = PBXGroup;
+			path = Views;
+			sourceTree = "<group>";
+			children = (
+				AA0001010000000000000007 /* MainView.swift */,
+				AA0001010000000000000008 /* PermissionOnboardingView.swift */,
+				AA0001010000000000000009 /* DiskUsageHeaderView.swift */,
+			);
+		};
+		AA0000F14000000000000040 /* Services */ = {
+			isa = PBXGroup;
+			name = Services;
+			sourceTree = "<group>";
+			children = (
+				AA0001010000000000000004 /* PermissionManager.swift */,
+				AA0001010000000000000005 /* FileScanner.swift */,
+			);
+		};
+		AA0000F15000000000000050 /* Utils */ = {
+			isa = PBXGroup;
+			path = Utils;
+			sourceTree = "<group>";
+			children = (
+				AA0001010000000000000003 /* BatchUpdater.swift */,
+			);
+		};
+
+		AA0000F200000000000000F2 /* MacOSAIDiskCleanerTests */ = {
+			isa = PBXGroup;
+			path = MacOSAIDiskCleanerTests;
+			sourceTree = "<group>";
+			children = (
+				AA0002010000000000000001 /* ScannerTests.swift */,
+				AA0002010000000000000003 /* RuleTests.swift */,
+				AA0002010000000000000004 /* PromptTests.swift */,
+				AA0002010000000000000002 /* Info.plist */,
+			);
+		};
+
+		AA0000FF00000000000000FF /* Products */ = {
+			isa = PBXGroup;
+			name = Products;
+			sourceTree = "<group>";
+			children = (
+				AA0002000000000000000000 /* MacOSAIDiskCleaner.app */,
+				AA0002010000000000000000 /* MacOSAIDiskCleanerTests.xctest */,
+			);
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AA0000100000000000000010 /* MacOSAIDiskCleaner */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA0000400000000000000040 /* Build configuration list for PBXNativeTarget "MacOSAIDiskCleaner" */;
+			buildPhases = (
+				AA0000110000000000000011 /* Sources */,
+				AA0000120000000000000012 /* Frameworks */,
+				AA0000130000000000000013 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MacOSAIDiskCleaner;
+			productName = MacOSAIDiskCleaner;
+			productReference = AA0002000000000000000000 /* MacOSAIDiskCleaner.app */;
+			productType = "com.apple.product-type.application";
+		};
+
+		AA0000200000000000000020 /* MacOSAIDiskCleanerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA0000410000000000000041 /* Build configuration list for PBXNativeTarget "MacOSAIDiskCleanerTests" */;
+			buildPhases = (
+				AA0000210000000000000021 /* Sources */,
+				AA0000220000000000000022 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AA0000300000000000000030 /* PBXTargetDependency */,
+			);
+			name = MacOSAIDiskCleanerTests;
+			productName = MacOSAIDiskCleanerTests;
+			productReference = AA0002010000000000000000 /* MacOSAIDiskCleanerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AA0000000000000000000000 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 9999;
+				TargetAttributes = {
+					AA0000100000000000000010 = {
+						CreatedOnToolsVersion = 26.2;
+					};
+					AA0000200000000000000020 = {
+						CreatedOnToolsVersion = 26.2;
+						TestTargetID = AA0000100000000000000010;
+					};
+				};
+			};
+			buildConfigurationList = AA0000420000000000000042 /* Build configuration list for PBXProject "MacOSAIDiskCleaner" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = zh_CN;
+			hasScannedForEncodings = 0;
+			mainGroup = AA0000F000000000000000F0 /* MacOSAIDiskCleaner */;
+			productRefGroup = AA0000FF00000000000000FF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AA0000100000000000000010 /* MacOSAIDiskCleaner */,
+				AA0000200000000000000020 /* MacOSAIDiskCleanerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AA0000130000000000000013 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA00000A000000000000000A /* Assets.xcassets in Resources */,
+				AA00000E000000000000000E /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AA0000110000000000000011 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA0000010000000000000001 /* MacOSAIDiskCleanerApp.swift in Sources */,
+				AA0000020000000000000002 /* ScannedItem.swift in Sources */,
+				AA0000030000000000000003 /* BatchUpdater.swift in Sources */,
+				AA0000040000000000000004 /* PermissionManager.swift in Sources */,
+				AA0000050000000000000005 /* FileScanner.swift in Sources */,
+				AA0000060000000000000006 /* DiskCleanerViewModel.swift in Sources */,
+				AA0000070000000000000007 /* MainView.swift in Sources */,
+				AA0000080000000000000008 /* PermissionOnboardingView.swift in Sources */,
+				AA0000090000000000000009 /* DiskUsageHeaderView.swift in Sources */,
+				AA00000C000000000000000C /* DiskCleanerError.swift in Sources */,
+				AA00000D000000000000000D /* Logger.swift in Sources */,
+				AA00000F000000000000000F /* RiskLevel.swift in Sources */,
+				AA0000100000000000000014 /* CleanupRule.swift in Sources */,
+				AA0000110000000000000015 /* RuleMatch.swift in Sources */,
+				AA0000120000000000000016 /* RuleMatcher.swift in Sources */,
+				AA0000130000000000000017 /* BuiltInRules.swift in Sources */,
+				AA0000150000000000000019 /* AnalysisContext.swift in Sources */,
+				AA000016000000000000001A /* PromptTemplate.swift in Sources */,
+				AA000017000000000000001B /* PathSanitizer.swift in Sources */,
+				AA000018000000000000001C /* Templates.swift in Sources */,
+				AA000019000000000000001D /* PromptManager.swift in Sources */,
+				AA00001B000000000000001F /* AIModels.swift in Sources */,
+				AA00001C0000000000000020 /* KeychainManager.swift in Sources */,
+				AA00001D0000000000000021 /* AIRequestQueue.swift in Sources */,
+				AA00001E0000000000000022 /* AIAnalysisCache.swift in Sources */,
+				AA00001F0000000000000023 /* LLMClient.swift in Sources */,
+				AA0000200000000000000024 /* SettingsViewModel.swift in Sources */,
+				AA0000210000000000000025 /* SettingsView.swift in Sources */,
+				AA0000220000000000000026 /* AIAnalyzer.swift in Sources */,
+				AA0000230000000000000027 /* CandidateItem.swift in Sources */,
+				AA0000240000000000000028 /* TrashRecord.swift in Sources */,
+				AA0000250000000000000029 /* AuditLog.swift in Sources */,
+				AA000026000000000000002A /* TrashManager.swift in Sources */,
+				AA000027000000000000002B /* UpdateManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+
+		AA0000210000000000000021 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA00000B000000000000000B /* ScannerTests.swift in Sources */,
+				AA0000140000000000000018 /* RuleTests.swift in Sources */,
+				AA00001A000000000000001E /* PromptTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AA0000300000000000000030 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA0000100000000000000010 /* MacOSAIDiskCleaner */;
+			targetProxy = AA0003000000000000000001 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		AA0000500000000000000050 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = MacOSAIDiskCleaner/Config/MacOSAIDiskCleaner.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = MacOSAIDiskCleaner/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				ENABLE_HARDENED_RUNTIME = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.niuyp.MacOSAIDiskCleaner;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+			};
+			name = Debug;
+		};
+
+		AA0000510000000000000051 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = MacOSAIDiskCleaner/Config/MacOSAIDiskCleaner.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = MacOSAIDiskCleaner/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				ENABLE_HARDENED_RUNTIME = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.niuyp.MacOSAIDiskCleaner;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 6.0;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+			};
+			name = Release;
+		};
+
+		AA0000600000000000000060 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = MacOSAIDiskCleanerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.niuyp.MacOSAIDiskCleanerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 6.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MacOSAIDiskCleaner.app/Contents/MacOS/MacOSAIDiskCleaner";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+			};
+			name = Debug;
+		};
+
+		AA0000610000000000000061 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = MacOSAIDiskCleanerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.niuyp.MacOSAIDiskCleanerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 6.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MacOSAIDiskCleaner.app/Contents/MacOS/MacOSAIDiskCleaner";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+			};
+			name = Release;
+		};
+
+		AA0000700000000000000070 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+
+		AA0000710000000000000071 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AA0000400000000000000040 /* Build configuration list for PBXNativeTarget "MacOSAIDiskCleaner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA0000500000000000000050 /* Debug */,
+				AA0000510000000000000051 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+
+		AA0000410000000000000041 /* Build configuration list for PBXNativeTarget "MacOSAIDiskCleanerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA0000600000000000000060 /* Debug */,
+				AA0000610000000000000061 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+
+		AA0000420000000000000042 /* Build configuration list for PBXProject "MacOSAIDiskCleaner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA0000700000000000000070 /* Debug */,
+				AA0000710000000000000071 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AA0000000000000000000000 /* Project object */;
+}
+
