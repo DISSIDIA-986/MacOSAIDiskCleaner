@@ -1,0 +1,34 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Xcode version
+        run: xcodebuild -version
+
+      - name: Build
+        run: |
+          xcodebuild \
+            -project MacOSAIDiskCleaner.xcodeproj \
+            -scheme MacOSAIDiskCleaner \
+            -configuration Debug \
+            -destination "platform=macOS" \
+            build
+
+      - name: Test
+        run: |
+          xcodebuild \
+            -project MacOSAIDiskCleaner.xcodeproj \
+            -scheme MacOSAIDiskCleanerTests \
+            -configuration Debug \
+            -destination "platform=macOS" \
+            test
+
