@@ -159,5 +159,9 @@ actor TrashManager {
     func recentAudit(limit: Int = 50) async -> [TrashRecord] {
         await auditLog.readRecent(limit: limit)
     }
+
+    func auditLogFileURL() async -> URL {
+        await auditLog.fileURL()
+    }
 }
 

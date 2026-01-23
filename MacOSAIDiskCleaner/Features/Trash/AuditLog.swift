@@ -47,5 +47,9 @@ actor AuditLog {
         }
         return out.reversed()
     }
+
+    func fileURL() -> URL {
+        logURL
+    }
 }
 

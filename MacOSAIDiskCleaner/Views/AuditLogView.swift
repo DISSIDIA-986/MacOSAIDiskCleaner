@@ -1,9 +1,11 @@
 import SwiftUI
+import AppKit
 
 struct AuditLogView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var isLoading = false
     @State private var records: [TrashRecord] = []
+    @State private var logFileURL: URL?
 
     var body: some View {
         VStack(spacing: 12) {
@@ -11,6 +13,10 @@ struct AuditLogView: View {
                 Text("Audit Log")
                     .font(.headline)
                 Spacer()
+                Button("Reveal Log File") { revealLogFile() }
+                    .disabled(logFileURL == nil)
+                Button("Copy (JSONL)") { copyRecentAsJSONL() }
+                    .disabled(records.isEmpty)
                 Button("Close") { dismiss() }
             }
 
@@ -55,7 +61,26 @@ struct AuditLogView: View {
         let tm = TrashManager()
         let recent = await tm.recentAudit(limit: 200)
         records = recent
+        logFileURL = await tm.auditLogFileURL()
         isLoading = false
+    }
+
+    private func revealLogFile() {
+        guard let url = logFileURL else { return }
+        NSWorkspace.shared.activateFileViewerSelecting([url])
+    }
+
+    private func copyRecentAsJSONL() {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = [.withoutEscapingSlashes]
+        let lines: [String] = records.compactMap { rec in
+            guard let data = try? encoder.encode(rec),
+                  let str = String(data: data, encoding: .utf8) else { return nil }
+            return str
+        }
+        let text = lines.joined(separator: "\n")
+        NSPasteboard.general.clearContents()
+        NSPasteboard.general.setString(text, forType: .string)
     }
 }
 
