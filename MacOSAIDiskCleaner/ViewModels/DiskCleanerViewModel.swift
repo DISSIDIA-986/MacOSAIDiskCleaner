@@ -23,6 +23,7 @@ final class DiskCleanerViewModel: ObservableObject {
     @Published private(set) var visitedFileCount: Int = 0
     @Published private(set) var scannedFileCount: Int = 0
     @Published private(set) var scannedBytes: Int64 = 0
+    @Published private(set) var estimatedTotalFiles: Int = 0
     @Published private(set) var isAnalyzing: Bool = false
     @Published private(set) var analyzedCount: Int = 0
     @Published private(set) var analyzeErrorMessage: String?
@@ -33,7 +34,9 @@ final class DiskCleanerViewModel: ObservableObject {
     let settings = SettingsViewModel()
 
     private let scanner = FileScanner()
-    private let ruleMatcher = RuleMatcher(rules: BuiltInRules.all)
+    private var ruleMatcher: RuleMatcher {
+        RuleMatcher(rules: BuiltInRules.all, options: settings.ruleMatcherOptions())
+    }
     private let aiAnalyzer = AIAnalyzer()
     private let trashManager = TrashManager()
     private var scanTask: Task<Void, Never>?
@@ -61,6 +64,7 @@ final class DiskCleanerViewModel: ObservableObject {
         visitedFileCount = 0
         scannedFileCount = 0
         scannedBytes = 0
+        estimatedTotalFiles = 0
         analyzedCount = 0
         analyzeErrorMessage = nil
         itemsByURL = [:]
@@ -68,6 +72,15 @@ final class DiskCleanerViewModel: ObservableObject {
         lastTrashSummary = nil
 
         let root = scanRootURL(for: selectedCategory)
+
+        // Quick estimate for progress percentage
+        Task.detached(priority: .utility) { [weak self] in
+            guard let self else { return }
+            let estimate = await self.scanner.estimateTotalFiles(root: root)
+            await MainActor.run {
+                self.estimatedTotalFiles = estimate
+            }
+        }
 
         scanTask = Task.detached(priority: .utility) { [weak self] in
             guard let self else { return }

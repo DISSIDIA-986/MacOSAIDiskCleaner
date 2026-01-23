@@ -22,14 +22,58 @@ struct SettingsView: View {
                 HStack {
                     Button("Save") { viewModel.save() }
                         .keyboardShortcut(.defaultAction)
+                        .accessibilityLabel("Save settings")
                     Button("Delete API Key") { viewModel.deleteAPIKey() }
                         .disabled(!viewModel.hasSavedAPIKey)
+                        .accessibilityLabel("Delete saved API key")
                 }
             }
 
             Section("Safety") {
                 Toggle("Dry Run (do not change filesystem)", isOn: $viewModel.dryRun)
+                    .accessibilityLabel("Enable dry run mode")
                 Button("View Audit Log") { showAuditLog = true }
+                    .accessibilityLabel("View audit log")
+            }
+            
+            Section("Custom Rules") {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Denylist (never scan/clean):")
+                        .font(.caption)
+                    ForEach(Array(viewModel.denylistPatterns.enumerated()), id: \.offset) { idx, pattern in
+                        HStack {
+                            TextField("Glob pattern", text: Binding(
+                                get: { pattern },
+                                set: { viewModel.denylistPatterns[idx] = $0 }
+                            ))
+                            Button("Remove") {
+                                viewModel.denylistPatterns.remove(at: idx)
+                            }
+                        }
+                    }
+                    Button("Add Pattern") {
+                        viewModel.denylistPatterns.append("")
+                    }
+                }
+                
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Allowlist (force mark as cleanable):")
+                        .font(.caption)
+                    ForEach(Array(viewModel.allowlistPatterns.enumerated()), id: \.offset) { idx, pattern in
+                        HStack {
+                            TextField("Glob pattern", text: Binding(
+                                get: { pattern },
+                                set: { viewModel.allowlistPatterns[idx] = $0 }
+                            ))
+                            Button("Remove") {
+                                viewModel.allowlistPatterns.remove(at: idx)
+                            }
+                        }
+                    }
+                    Button("Add Pattern") {
+                        viewModel.allowlistPatterns.append("")
+                    }
+                }
             }
 
             Section("Privacy") {
