@@ -8,6 +8,8 @@ final class SettingsViewModel: ObservableObject {
     @Published private(set) var hasSavedAPIKey: Bool = false
     @Published var maxConcurrentRequests: Int
     @Published var dryRun: Bool
+    @Published var denylistPatterns: [String]
+    @Published var allowlistPatterns: [String]
 
     private let defaults = UserDefaults.standard
 
@@ -16,6 +18,8 @@ final class SettingsViewModel: ObservableObject {
         static let model = "settings.model"
         static let maxConcurrentRequests = "settings.maxConcurrentRequests"
         static let dryRun = "settings.dryRun"
+        static let denylistPatterns = "settings.denylistPatterns"
+        static let allowlistPatterns = "settings.allowlistPatterns"
     }
 
     init() {
@@ -25,6 +29,8 @@ final class SettingsViewModel: ObservableObject {
         self.maxConcurrentRequests = mc == 0 ? 3 : mc
 
         self.dryRun = defaults.bool(forKey: Keys.dryRun)
+        self.denylistPatterns = defaults.stringArray(forKey: Keys.denylistPatterns) ?? []
+        self.allowlistPatterns = defaults.stringArray(forKey: Keys.allowlistPatterns) ?? []
 
         self.hasSavedAPIKey = (KeychainManager.loadAPIKey() != nil)
     }
@@ -34,6 +40,8 @@ final class SettingsViewModel: ObservableObject {
         defaults.set(model, forKey: Keys.model)
         defaults.set(maxConcurrentRequests, forKey: Keys.maxConcurrentRequests)
         defaults.set(dryRun, forKey: Keys.dryRun)
+        defaults.set(denylistPatterns, forKey: Keys.denylistPatterns)
+        defaults.set(allowlistPatterns, forKey: Keys.allowlistPatterns)
 
         let trimmed = apiKeyDraft.trimmingCharacters(in: .whitespacesAndNewlines)
         if !trimmed.isEmpty {
@@ -41,6 +49,14 @@ final class SettingsViewModel: ObservableObject {
             apiKeyDraft = ""
         }
         hasSavedAPIKey = (KeychainManager.loadAPIKey() != nil)
+    }
+    
+    func ruleMatcherOptions() -> RuleMatcher.Options {
+        RuleMatcher.Options(
+            activeProjectDays: 30,
+            denylistPatterns: denylistPatterns,
+            allowlistPatterns: allowlistPatterns
+        )
     }
 
     func deleteAPIKey() {

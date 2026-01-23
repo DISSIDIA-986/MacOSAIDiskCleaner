@@ -69,16 +69,21 @@ struct MainView: View {
             HStack(spacing: 12) {
                 Button("Scan") { viewModel.startScan() }
                     .keyboardShortcut(.defaultAction)
+                    .accessibilityLabel("Start scanning for files to clean")
                 Button("Stop") { viewModel.stopScan() }
                     .disabled(viewModel.scanState != .scanning)
+                    .accessibilityLabel("Stop current scan")
 
                 Button("Analyze top 10") { viewModel.analyzeTopItems(limit: 10) }
                     .disabled(viewModel.isAnalyzing || viewModel.items.isEmpty)
+                    .accessibilityLabel("Analyze top 10 items with AI")
 
                 Button("Trash selected") { viewModel.trashSelected() }
                     .disabled(viewModel.selectedURLs.isEmpty)
+                    .accessibilityLabel("Move selected items to trash")
 
                 Button("Undo last") { viewModel.undoLastTrash() }
+                    .accessibilityLabel("Undo last trash operation")
 
                 Spacer()
 
@@ -113,6 +118,7 @@ struct MainView: View {
                     ))
                     .toggleStyle(.checkbox)
                     .labelsHidden()
+                    .accessibilityLabel("Select \(item.name) for cleanup")
 
                     VStack(alignment: .leading, spacing: 2) {
                         Text(item.name)
@@ -147,7 +153,14 @@ struct MainView: View {
             return "Idle"
         case .scanning:
             let size = ByteCountFormatter.string(fromByteCount: viewModel.scannedBytes, countStyle: .file)
-            return "Scanning… visited: \(viewModel.visitedFileCount), files: \(viewModel.scannedFileCount), size: \(size)"
+            let percent: String
+            if viewModel.estimatedTotalFiles > 0 {
+                let pct = Int((Double(viewModel.visitedFileCount) / Double(viewModel.estimatedTotalFiles)) * 100)
+                percent = " (\(pct)%)"
+            } else {
+                percent = ""
+            }
+            return "Scanning… visited: \(viewModel.visitedFileCount)\(percent), files: \(viewModel.scannedFileCount), size: \(size)"
         case .finished:
             return "Finished"
         case .failed(let msg):
