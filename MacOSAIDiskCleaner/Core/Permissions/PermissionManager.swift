@@ -15,37 +15,54 @@ final class PermissionManager: ObservableObject {
     @Published private(set) var fullDiskAccessStatus: FullDiskAccessStatus = .notGranted
 
     func refresh() {
-        fullDiskAccessStatus = Self.checkFullDiskAccess() ? .granted : .notGranted
-        Logger.system.info("Full Disk Access status: \(String(describing: self.fullDiskAccessStatus))")
+        let hasPermission = Self.checkFullDiskAccess()
+        fullDiskAccessStatus = hasPermission ? .granted : .notGranted
+        Logger.scanner.info("Full Disk Access status: \(String(describing: self.fullDiskAccessStatus)), detected: \(hasPermission)")
     }
 
-    /// 通过尝试访问受保护目录来“探测”是否已开启 FDA。
+    /// 通过尝试访问受保护目录来"探测"是否已开启 FDA。
     static func checkFullDiskAccess() -> Bool {
         let fm = FileManager.default
         let home = fm.homeDirectoryForCurrentUser
 
-        let candidates: [URL] = [
-            // 通常存在且受 TCC/FDA 保护
-            home.appendingPathComponent("Library/Application Support/com.apple.TCC/TCC.db"),
-            home.appendingPathComponent("Library/Mail", isDirectory: true),
-            home.appendingPathComponent("Library/Messages", isDirectory: true),
+        // 测试多个可能的受保护路径，提高检测成功率
+        let candidates: [(URL, String)] = [
+            // TCC 数据库 - 最可靠的测试路径
+            (home.appendingPathComponent("Library/Application Support/com.apple.TCC/TCC.db"), "TCC.db"),
+            // Safari 数据 - 大多数用户都有
+            (home.appendingPathComponent("Library/Safari"), "Safari"),
+            // Mail 数据
+            (home.appendingPathComponent("Library/Mail"), "Mail"),
+            // Messages 数据
+            (home.appendingPathComponent("Library/Messages"), "Messages"),
         ]
 
-        for url in candidates {
+        for (url, name) in candidates {
             var isDir: ObjCBool = false
-            guard fm.fileExists(atPath: url.path, isDirectory: &isDir) else { continue }
+            guard fm.fileExists(atPath: url.path, isDirectory: &isDir) else {
+                // 路径不存在，跳过
+                continue
+            }
+
             do {
                 if isDir.boolValue {
-                    _ = try fm.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])
+                    // 尝试列出目录内容
+                    _ = try fm.contentsOfDirectory(atPath: url.path, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])
+                    // 成功！有 Full Disk Access
                     return true
                 } else {
+                    // 尝试读取文件属性
                     _ = try fm.attributesOfItem(atPath: url.path)
+                    // 成功！有 Full Disk Access
                     return true
                 }
             } catch {
+                // 访问被拒绝，继续尝试下一个路径
                 continue
             }
         }
+
+        // 所有路径都无法访问，没有 Full Disk Access
         return false
     }
 
