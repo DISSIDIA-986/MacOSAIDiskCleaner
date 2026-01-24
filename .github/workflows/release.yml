@@ -17,6 +17,14 @@ jobs:
       - name: Install create-dmg
         run: brew install create-dmg
 
+      - name: Install Python Dependencies
+        run: pip3 install Pillow
+
+      - name: Clone Sparkle (Local Dependency)
+        run: |
+          mkdir -p Vendor
+          git clone --depth 1 --branch 2.6.4 https://github.com/sparkle-project/Sparkle.git Vendor/Sparkle
+
       - name: Set Version from Tag
         run: echo "APP_VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
 
