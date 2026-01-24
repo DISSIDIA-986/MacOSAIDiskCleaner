@@ -20,10 +20,16 @@ jobs:
       - name: Install Python Dependencies
         run: pip3 install Pillow
 
-      - name: Clone Sparkle (Local Dependency)
+      - name: Clone Sparkle (Fix Paths)
         run: |
+          # 策略：在所有可能的路径都准备好代码
+          
+          # 1. 官方推荐的 Vendor 路径
           mkdir -p Vendor
           git clone --depth 1 --branch 2.6.4 https://github.com/sparkle-project/Sparkle.git Vendor/Sparkle
+          
+          # 2. 根目录路径 (Xcode 报错指向这里)
+          cp -r Vendor/Sparkle Sparkle
 
       - name: Set Version from Tag
         run: echo "APP_VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
