@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A0F5EE1F2F2469DB000FC358 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = A0F5EE1E2F2469DB000FC358 /* Sparkle */; };
 		AA0000010000000000000001 /* MacOSAIDiskCleanerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000001 /* MacOSAIDiskCleanerApp.swift */; };
 		AA0000020000000000000002 /* ScannedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000002 /* ScannedItem.swift */; };
 		AA0000030000000000000003 /* BatchUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000003 /* BatchUpdater.swift */; };
@@ -111,6 +112,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0F5EE1F2F2469DB000FC358 /* Sparkle in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +306,9 @@
 				Base,
 			);
 			mainGroup = AA0000F000000000000000F0;
+			packageReferences = (
+				A0F5EE1D2F2469DB000FC358 /* XCLocalSwiftPackageReference "../Sparkle" */,
+			);
 			productRefGroup = AA0000FF00000000000000FF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -614,6 +619,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		A0F5EE1D2F2469DB000FC358 /* XCLocalSwiftPackageReference "../Sparkle" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../Sparkle;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A0F5EE1E2F2469DB000FC358 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Sparkle;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AA0000000000000000000000 /* Project object */;
 }

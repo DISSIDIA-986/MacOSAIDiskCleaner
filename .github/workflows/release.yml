@@ -1,262 +1,71 @@
-name: Release
+name: Release and Appcast
 
 on:
   push:
     tags:
-      - 'v*.*.*'  # Triggers on version tags like v0.1.0
-
-permissions:
-  contents: write  # Required for creating releases
+      - 'v*' # 当推送 v0.1.0 等标签时触发
 
 jobs:
   release:
     runs-on: macos-latest
-
     steps:
-      - name: Checkout Repository
+      - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Full history for version tracking
+          submodules: recursive
 
-      - name: Extract Version from Tag
-        id: version
+      - name: Install create-dmg
+        run: brew install create-dmg
+
+      - name: Set Version from Tag
+        run: echo "APP_VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+
+      - name: Build App
         run: |
-          # Remove 'v' prefix from tag
-          VERSION=${GITHUB_REF#refs/tags/v}
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Extracted version: $VERSION"
-
-      - name: Update Info.plist with Version
-        run: |
-          VERSION="${{ steps.version.outputs.version }}"
-          echo "Updating Info.plist to version $VERSION"
-
-          # Update CFBundleShortVersionString (e.g., "0.1.0")
-          plutil -replace CFBundleShortVersionString -string "$VERSION" MacOSAIDiskCleaner/Info.plist
-
-          # Update CFBundleVersion (use build number from commit count)
-          BUILD_NUMBER=$(git rev-list --count HEAD)
-          plutil -replace CFBundleVersion -string "$BUILD_NUMBER" MacOSAIDiskCleaner/Info.plist
-
-          # Verify updates
-          echo "CFBundleShortVersionString: $(plutil -extract CFBundleShortVersionString raw MacOSAIDiskCleaner/Info.plist)"
-          echo "CFBundleVersion: $(plutil -extract CFBundleVersion raw MacOSAIDiskCleaner/Info.plist)"
-
-      - name: Setup Xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: latest-stable
-
-      - name: Show Xcode Version
-        run: xcodebuild -version
-
-      - name: Build Release App
-        run: |
-          VERSION="${{ steps.version.outputs.version }}"
-
-          # Build Release configuration
-          xcodebuild \
-            -project MacOSAIDiskCleaner.xcodeproj \
-            -scheme MacOSAIDiskCleaner \
+          xcodebuild -scheme MacOSAIDiskCleaner \
             -configuration Release \
-            -destination "platform=macOS" \
-            build
+            -derivedDataPath ./build \
+            clean build \
+            CODE_SIGNING_ALLOWED=NO
 
-          # Verify app bundle exists
-          if [ ! -d "build/Release/MacOSAIDiskCleaner.app" ]; then
-            echo "Error: App bundle not found"
-            exit 1
-          fi
-
-          echo "Build completed successfully"
-
-      - name: Install Sparkle Sign Tools
+      - name: Create DMG
         run: |
-          echo "Installing Sparkle signing tools..."
+          mkdir -p dist
+          # 使用 Python 脚本重新生成背景图（CI 环境没有文件）
+          python3 generate_bg.py
+          create-dmg \
+            --volname "MacOSAIDiskCleaner" \
+            --background "dmg_background.png" \
+            --window-pos 200 120 \
+            --window-size 600 400 \
+            --icon-size 100 \
+            --icon "MacOSAIDiskCleaner.app" 100 190 \
+            --hide-extension "MacOSAIDiskCleaner.app" \
+            --app-drop-link 450 190 \
+            "dist/MacOSAIDiskCleaner_${{ env.APP_VERSION }}.dmg" \
+            "./build/Build/Products/Release/MacOSAIDiskCleaner.app"
 
-          # Get latest Sparkle release version from GitHub API
-          LATEST_VERSION=$(curl -s "https://api.github.com/repos/sparkle-project/Sparkle/releases/latest" \
-            | grep '"tag_name"' \
-            | sed -E 's/.*"([^"]+)".*/\1/')
-
-          if [ -z "$LATEST_VERSION" ]; then
-            echo "Error: Failed to fetch latest Sparkle version"
-            exit 1
-          fi
-
-          echo "Latest Sparkle version: $LATEST_VERSION"
-
-          # Download Sparkle release archive
-          curl -L -o sparkle.tar.xz \
-            "https://github.com/sparkle-project/Sparkle/releases/download/${LATEST_VERSION}/Sparkle-${LATEST_VERSION}.tar.xz"
-
-          # Extract archive
-          tar xf sparkle.tar.xz
-
-          # Install sign_update tool
-          sudo cp Sparkle/bin/sign_update /usr/local/bin/
-          sudo chmod +x /usr/local/bin/sign_update
-
-          # Verify installation
-          which sign_update
-          sign_update --help || true
-
-          echo "Sparkle sign tools installed successfully"
-
-      - name: Create DMG Image
+      - name: Setup Sparkle Binary
         run: |
-          VERSION="${{ steps.version.outputs.version }}"
-          APP_BUNDLE="build/Release/MacOSAIDiskCleaner.app"
-          DMG_NAME="MacOSAIDiskCleaner-${VERSION}"
-          DMG_PATH="build/${DMG_NAME}.dmg"
+          curl -L https://github.com/sparkle-project/Sparkle/releases/download/2.6.4/Sparkle-2.6.4.tar.xz -o sparkle.tar.xz
+          tar -xf sparkle.tar.xz bin/generate_appcast
 
-          echo "Creating DMG: $DMG_PATH"
-
-          # Create DMG using APFS format with compression
-          hdiutil create \
-            -volname "MacOS AI Disk Cleaner" \
-            -fs APFS \
-            -fsargs "-c c=64,a=16,e=16" \
-            -imagekey zlib-level=9 \
-            -layout SPUD \
-            -srcfolder "$APP_BUNDLE" \
-            -ov -format UDZO \
-            "$DMG_PATH"
-
-          # Verify DMG was created
-          if [ ! -f "$DMG_PATH" ]; then
-            echo "Error: DMG creation failed"
-            exit 1
-          fi
-
-          # Get DMG size
-          DMG_SIZE=$(stat -f%z "$DMG_PATH")
-          echo "DMG created successfully: $DMG_PATH ($DMG_SIZE bytes)"
-
-          # Upload DMG as artifact (for debugging)
-          echo "DMG_PATH=$DMG_PATH" >> $GITHUB_ENV
-
-      - name: Generate Appcast.xml
+      - name: Generate Appcast
         env:
+          # 需要在 GitHub Secrets 中配置此私钥
           SPARKLE_PRIVATE_KEY: ${{ secrets.SPARKLE_PRIVATE_KEY }}
         run: |
-          VERSION="${{ steps.version.outputs.version }}"
-          DMG_PATH="${{ env.DMG_PATH }}"
-
-          # Validate private key secret
-          if [ -z "$SPARKLE_PRIVATE_KEY" ]; then
-            echo "Error: SPARKLE_PRIVATE_KEY secret not set"
-            echo "Please add EdDSA private key to GitHub Secrets"
-            exit 1
-          fi
-
-          # Save private key to temporary file
-          PRIVATE_KEY_FILE=$(mktemp)
-          trap "rm -f $PRIVATE_KEY_FILE" EXIT
-          echo "$SPARKLE_PRIVATE_KEY" > "$PRIVATE_KEY_FILE"
-          chmod 600 "$PRIVATE_KEY_FILE"
-
-          echo "Private key file created: $PRIVATE_KEY_FILE"
-
-          # Generate appcast using the script
-          ./scripts/generate_appcast.sh "$VERSION" "$DMG_PATH" "$PRIVATE_KEY_FILE"
-
-          # The script generates appcast.xml in gh-pages/
-          if [ ! -f "gh-pages/appcast.xml" ]; then
-            echo "Error: appcast.xml was not generated"
-            exit 1
-          fi
-
-          echo "Appcast generated successfully"
+          # 将私钥从 Secret 写入临时文件供 Sparkle 使用
+          echo "$SPARKLE_PRIVATE_KEY" > sparkle_key.txt
+          ./bin/generate_appcast --edkey-path sparkle_key.txt dist/
+          rm sparkle_key.txt
 
       - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/*.dmg
+            dist/appcast.xml
+          body: "MacOS AI Disk Cleaner Release ${{ env.APP_VERSION }}"
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          VERSION="${{ steps.version.outputs.version }}"
-          DMG_PATH="${{ env.DMG_PATH }}"
-          DMG_NAME=$(basename "$DMG_PATH")
-
-          # Create release notes
-          RELEASE_NOTES="## MacOSAIDiskCleaner ${VERSION}
-
-          Download the DMG below to install or update MacOSAIDiskCleaner.
-
-          **System Requirements:**
-          - macOS 12.0 or later
-
-          **What's New:**
-          - See the commit history for detailed changes: https://github.com/DISSIDIA-986/MacOSAIDiskCleaner/commits/v${VERSION}
-
-          **Installation:**
-          1. Download the DMG file
-          2. Open the DMG and drag MacOSAIDiskCleaner to Applications
-          3. Launch the app from Applications folder
-          4. Grant Full Disk Access in System Settings when prompted
-          "
-
-          # Create release using gh CLI
-          gh release create "v${VERSION}" \
-            "$DMG_PATH" \
-            --title "MacOSAIDiskCleaner ${VERSION}" \
-            --notes "$RELEASE_NOTES" \
-            --latest
-
-          echo "Release created successfully"
-
-      - name: Deploy appcast.xml to GitHub Pages
-        run: |
-          # Configure git
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-
-          # Save the generated appcast.xml to a temp location
-          cp gh-pages/appcast.xml /tmp/appcast.xml
-
-          # Checkout gh-pages branch
-          git checkout --orphan gh-pages
-          git rm -rf .
-
-          # Restore appcast.xml from temp location
-          cp /tmp/appcast.xml appcast.xml
-
-          # Create index.html redirect
-          cat > index.html << 'EOF'
-          <!DOCTYPE html>
-          <html>
-          <head>
-              <meta charset="utf-8">
-              <title>MacOS AI Disk Cleaner Updates</title>
-              <meta http-equiv="refresh" content="0;url=https://github.com/DISSIDIA-986/MacOSAIDiskCleaner/releases">
-          </head>
-          <body>
-              <p>Redirecting to GitHub Releases...</p>
-          </body>
-          </html>
-          EOF
-
-          # Commit and push
-          git add .
-          git commit -m "Update appcast for v${{ steps.version.outputs.version }}"
-          git push origin gh-pages --force
-
-          echo "Appcast deployed to GitHub Pages"
-
-      - name: Verification Summary
-        run: |
-          VERSION="${{ steps.version.outputs.version }}"
-          echo ""
-          echo "═══════════════════════════════════════════════════"
-          echo "✓ Release v${VERSION} completed successfully!"
-          echo "═══════════════════════════════════════════════════"
-          echo ""
-          echo "Release URLs:"
-          echo "  - GitHub Release: https://github.com/DISSIDIA-986/MacOSAIDiskCleaner/releases/tag/v${VERSION}"
-          echo "  - DMG Download: https://github.com/DISSIDIA-986/MacOSAIDiskCleaner/releases/download/v${VERSION}/MacOSAIDiskCleaner-${VERSION}.dmg"
-          echo "  - Appcast Feed: https://dissidia-986.github.io/MacOSAIDiskCleaner/appcast.xml"
-          echo ""
-          echo "Next Steps:"
-          echo "  1. Test the update by downloading and installing the DMG"
-          echo "  2. Verify in-app update check works correctly"
-          echo "  3. Monitor for any issues reported by users"
-          echo ""
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -76,3 +76,20 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
+
+# App Build and Release
+build/
+dist/
+DerivedData/
+*.dmg
+*.png
+.venv/
+generate_bg.py
+publish.sh
+
+# Sparkle Local Tools & Vendor
+Vendor/Sparkle/
+sparkle_bin/
+sparkle_tools.tar.xz
+sparkle_key.txt
+
