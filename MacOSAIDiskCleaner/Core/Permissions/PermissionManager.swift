@@ -47,7 +47,7 @@ final class PermissionManager: ObservableObject {
             do {
                 if isDir.boolValue {
                     // 尝试列出目录内容
-                    _ = try fm.contentsOfDirectory(atPath: url.path, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])
+                    _ = try fm.contentsOfDirectory(atPath: url.path, includingPropertiesForKeys: nil)
                     // 成功！有 Full Disk Access
                     return true
                 } else {
