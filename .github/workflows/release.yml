@@ -56,11 +56,8 @@ jobs:
       - name: Create DMG
         run: |
           mkdir -p dist
-          # 使用 Python 脚本重新生成背景图（CI 环境没有文件）
-          python3 generate_bg.py
           create-dmg \
             --volname "MacOSAIDiskCleaner" \
-            --background "dmg_background.png" \
             --window-pos 200 120 \
             --window-size 600 400 \
             --icon-size 100 \
