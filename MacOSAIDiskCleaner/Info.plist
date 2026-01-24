@@ -28,7 +28,7 @@
 	<key>SUFeedURL</key>
 	<string>https://dissidia-986.github.io/MacOSAIDiskCleaner/appcast.xml</string>
 	<key>SUPublicEDKey</key>
-	<string>OpHysuBvjeOlSuM4NGbId1UqIQTMHSATRzA8rxJhNJ0=</string>
+	<string>a6c94430d9dcfe55a28429102217656de52780f68b1c3ea1a898ca3144bec489</string>
 	<key>SUScheduledCheckInterval</key>
 	<integer>86400</integer>
 	<key>SUEnableAutomaticChecks</key>
