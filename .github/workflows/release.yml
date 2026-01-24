@@ -79,7 +79,8 @@ jobs:
         run: |
           # 将私钥从 Secret 写入临时文件供 Sparkle 使用
           echo "$SPARKLE_PRIVATE_KEY" > sparkle_key.txt
-          ./bin/generate_appcast --edkey-path sparkle_key.txt dist/
+          # 使用私钥路径参数（Sparkle 2.x 正确的参数名）
+          ./bin/generate_appcast dist/ sparkle_key.txt
           rm sparkle_key.txt
 
       - name: Create GitHub Release
