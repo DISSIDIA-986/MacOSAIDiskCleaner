@@ -22,23 +22,25 @@ jobs:
 
       - name: Clone Sparkle (Fix Paths)
         run: |
-          # 策略：在所有可能的路径都准备好代码
+          # Xcode 项目引用的是 "../Sparkle" (父目录)
+          # 需要将 Sparkle 克隆到父目录
 
-          # 1. 官方推荐的 Vendor 路径
+          # 1. 克隆到父目录
+          cd ..
+          git clone --depth 1 --branch 2.6.4 https://github.com/sparkle-project/Sparkle.git Sparkle
+          echo "✓ Cloned Sparkle to parent directory"
+
+          # 2. 也复制到 Vendor (官方推荐路径)
+          cd MacOSAIDiskCleaner
           mkdir -p Vendor
-          git clone --depth 1 --branch 2.6.4 https://github.com/sparkle-project/Sparkle.git Vendor/Sparkle
-          echo "✓ Cloned to Vendor/Sparkle"
-
-          # 2. 根目录路径 (Xcode 报错指向这里)
-          if [ -d "Sparkle" ]; then
-            echo "✓ Sparkle directory already exists, skipping copy"
-          else
-            cp -R Vendor/Sparkle Sparkle
-            echo "✓ Copied Vendor/Sparkle to ./Sparkle"
-          fi
+          cp -R ../Sparkle Vendor/Sparkle
+          echo "✓ Copied Sparkle to Vendor/Sparkle"
 
           # 验证
-          ls -la | grep Sparkle || echo "ERROR: Sparkle directory not found!"
+          echo "Parent directory:"
+          ls -la .. | grep Sparkle
+          echo "Current Vendor directory:"
+          ls -la Vendor/ | grep Sparkle
 
       - name: Set Version from Tag
         run: echo "APP_VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
