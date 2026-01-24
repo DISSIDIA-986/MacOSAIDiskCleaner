@@ -24,10 +24,15 @@
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSAppleEventsUsageDescription</key>
 	<string>用于在需要时通过系统自动化完成清理相关操作（预留）。</string>
+	<!-- Sparkle Auto-Update Configuration -->
 	<key>SUFeedURL</key>
-	<string>https://example.com/appcast.xml</string>
+	<string>https://dissidia-986.github.io/MacOSAIDiskCleaner/appcast.xml</string>
 	<key>SUPublicEDKey</key>
-	<string>REPLACE_WITH_EDDSA_PUBLIC_KEY</string>
+	<string>REPLACE_WITH_YOUR_GENERATED_PUBLIC_KEY_HERE</string>
+	<key>SUScheduledCheckInterval</key>
+	<integer>86400</integer>
+	<key>SUEnableAutomaticChecks</key>
+	<true/>
 </dict>
 </plist>
 
