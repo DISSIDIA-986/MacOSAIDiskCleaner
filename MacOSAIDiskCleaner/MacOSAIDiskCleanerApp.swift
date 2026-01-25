@@ -9,6 +9,16 @@ struct MacOSAIDiskCleanerApp: App {
         WindowGroup {
             MainView(viewModel: viewModel)
                 .frame(minWidth: 980, minHeight: 640)
+                .task {
+                    // One-time migration from audit.log into statistics
+                    let key = "StatisticsMigratedFromAuditLog"
+                    if !UserDefaults.standard.bool(forKey: key) {
+                        let stats = StatisticsManager()
+                        let audit = AuditLog()
+                        await stats.migrateFromAuditLog(auditLog: audit)
+                        UserDefaults.standard.set(true, forKey: key)
+                    }
+                }
         }
         .windowStyle(.automatic)
 
