@@ -16,12 +16,17 @@ final class PromptTests: XCTestCase {
     }
 
     func testPromptManagerSelectsCacheTemplate() {
-        let pm = PromptManager()
-        let ctx = AnalysisContext(path: "/Users/alice/Library/Caches/com.example", isDirectory: true, sizeBytes: 10)
-        let (id, prompt) = pm.makePrompt(context: ctx)
-        XCTAssertEqual(id, "cache")
-        XCTAssertTrue(prompt.contains("cache"))
-        XCTAssertFalse(prompt.contains("/Users/alice"))
+        let exp = expectation(description: "makePrompt async")
+        Task {
+            let pm = PromptManager()
+            let ctx = AnalysisContext(path: "/Users/alice/Library/Caches/com.example", isDirectory: true, sizeBytes: 10)
+            let (id, prompt) = await pm.makePrompt(context: ctx, category: .caches, developerProfile: nil)
+            XCTAssertEqual(id, "cache")
+            XCTAssertTrue(prompt.contains("cache"))
+            XCTAssertFalse(prompt.contains("/Users/alice"))
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 2.0)
     }
 }
 
