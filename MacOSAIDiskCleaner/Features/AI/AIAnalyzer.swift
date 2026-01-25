@@ -26,12 +26,21 @@ actor AIAnalyzer {
         self.queue = AIRequestQueue(maxConcurrent: config.maxConcurrentRequests)
     }
 
-    func analyze(context: AnalysisContext, config: AIConfiguration) async throws -> AIAnalysis {
+    func analyze(
+        context: AnalysisContext,
+        config: AIConfiguration,
+        category: ScanCategory? = nil,
+        developerProfile: DeveloperProfile? = nil
+    ) async throws -> AIAnalysis {
         guard let apiKey = KeychainManager.loadAPIKey(), !apiKey.isEmpty else {
             throw DiskCleanerError.permissionDenied("API Key not set")
         }
 
-        let (templateId, prompt) = promptManager.makePrompt(context: context)
+        let (templateId, prompt) = await promptManager.makePrompt(
+            context: context,
+            category: category,
+            developerProfile: developerProfile
+        )
         let sanitizedPath = PathSanitizer.sanitize(context.path)
         // Use glob pattern for cache key (per implementation plan)
         let globPattern = makeGlobPattern(for: context.path, matchedRule: context.matchedRuleId)
