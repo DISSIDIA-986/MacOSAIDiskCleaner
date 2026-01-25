@@ -1,34 +1,28 @@
 import Foundation
 
 struct PromptManager: Sendable {
-    private let templates: [PromptTemplate]
+    private let templateManager: TemplateManager
 
-    init(templates: [PromptTemplate] = [CacheTemplate(), AppSupportTemplate(), LargeDirectoryTemplate()]) {
-        self.templates = templates
+    init(templateManager: TemplateManager = TemplateManager()) {
+        self.templateManager = templateManager
     }
 
-    func makePrompt(context: AnalysisContext) -> (templateId: String, prompt: String) {
+    func makePrompt(
+        context: AnalysisContext,
+        category: ScanCategory?,
+        developerProfile: DeveloperProfile?
+    ) async -> (templateId: String, prompt: String) {
         let sanitizedPath = PathSanitizer.sanitize(context.path)
-        let template = selectTemplate(for: context)
-        return (template.id, template.render(context: context, sanitizedPath: sanitizedPath))
-    }
-
-    func selectTemplate(for context: AnalysisContext) -> PromptTemplate {
-        let p = context.path
-
-        if p.contains("/Library/Caches/") {
-            return templates.first(where: { $0.id == "cache" }) ?? CacheTemplate()
-        }
-        if p.contains("/Library/Application Support/") {
-            return templates.first(where: { $0.id == "app_support" }) ?? AppSupportTemplate()
-        }
-
-        // 大目录兜底（>1GB 或目录）
-        if context.isDirectory || context.sizeBytes >= 1_000_000_000 {
-            return templates.first(where: { $0.id == "large_directory" }) ?? LargeDirectoryTemplate()
-        }
-
-        return templates.first(where: { $0.id == "large_directory" }) ?? LargeDirectoryTemplate()
+        let template = await templateManager.selectTemplate(
+            for: context,
+            category: category,
+            developerProfile: developerProfile
+        )
+        return (template.id, template.render(
+            context: context,
+            sanitizedPath: sanitizedPath,
+            developerProfile: developerProfile
+        ))
     }
 }
 
