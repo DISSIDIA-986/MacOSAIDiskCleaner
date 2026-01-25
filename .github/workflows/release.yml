@@ -50,8 +50,14 @@ jobs:
           xcodebuild -scheme MacOSAIDiskCleaner \
             -configuration Release \
             -derivedDataPath ./build \
+            MARKETING_VERSION=${{ env.APP_VERSION }} \
+            CURRENT_PROJECT_VERSION=${{ github.run_number }} \
             clean build \
-            CODE_SIGNING_ALLOWED=NO
+            CODE_SIGN_IDENTITY="-" \
+            CODE_SIGNING_REQUIRED=YES \
+            CODE_SIGNING_ALLOWED=YES \
+            ENABLE_APP_SANDBOX=NO \
+            ENABLE_HARDENED_RUNTIME=NO
 
       - name: Create DMG
         run: |
@@ -80,7 +86,7 @@ jobs:
           # 将私钥从 Secret 写入临时文件供 Sparkle 使用
           echo "$SPARKLE_PRIVATE_KEY" > sparkle_key.txt
           # 使用私钥路径参数（Sparkle 2.x 正确的参数名）
-          ./bin/generate_appcast dist/ sparkle_key.txt
+          ./bin/generate_appcast --ed-key-file sparkle_key.txt dist/
           rm sparkle_key.txt
 
       - name: Create GitHub Release

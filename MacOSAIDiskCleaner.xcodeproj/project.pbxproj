@@ -7,47 +7,55 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0ACC2E80B1B907489CCEBD81 /* ScanCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CA5D98286AAFC39089D192 /* ScanCategory.swift */; };
+		166E7AE84344FBAB5AD1C9F9 /* StatisticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB3D3DBC07F5B9230D619D7 /* StatisticsViewModel.swift */; };
+		2AE1AD4344C58C6C3E0F7361 /* StatisticsDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE390854792BA968AECF74C9 /* StatisticsDashboardView.swift */; };
+		2C21F26370DF86D75C9BF1B2 /* TemplateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B3E1E2880A03A5B6CACD67 /* TemplateManager.swift */; };
+		62B7CFE138A37082BE07B744 /* StatisticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECEB8560AC36161FD5AA50E5 /* StatisticsManager.swift */; };
+		6623F13C4FF2DC971E32B88D /* ScanSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C896A4F2773A4493E951B17 /* ScanSession.swift */; };
 		A0F5EE1F2F2469DB000FC358 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = A0F5EE1E2F2469DB000FC358 /* Sparkle */; };
 		AA0000010000000000000001 /* MacOSAIDiskCleanerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000001 /* MacOSAIDiskCleanerApp.swift */; };
 		AA0000020000000000000002 /* ScannedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000002 /* ScannedItem.swift */; };
 		AA0000030000000000000003 /* BatchUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000003 /* BatchUpdater.swift */; };
-		AA0000040000000000000004 /* Core/Permissions/PermissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000004 /* Core/Permissions/PermissionManager.swift */; };
-		AA0000050000000000000005 /* Features/Scanner/FileScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000005 /* Features/Scanner/FileScanner.swift */; };
+		AA0000040000000000000004 /* PermissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000004 /* PermissionManager.swift */; };
+		AA0000050000000000000005 /* FileScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000005 /* FileScanner.swift */; };
 		AA0000060000000000000006 /* DiskCleanerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000006 /* DiskCleanerViewModel.swift */; };
 		AA0000070000000000000007 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000007 /* MainView.swift */; };
 		AA0000080000000000000008 /* PermissionOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000008 /* PermissionOnboardingView.swift */; };
 		AA0000090000000000000009 /* DiskUsageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000009 /* DiskUsageHeaderView.swift */; };
 		AA00000A000000000000000A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000000A /* Assets.xcassets */; };
 		AA00000B000000000000000B /* ScannerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0002010000000000000001 /* ScannerTests.swift */; };
-		AA00000C000000000000000C /* Core/Errors/DiskCleanerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000000C /* Core/Errors/DiskCleanerError.swift */; };
-		AA00000D000000000000000D /* Core/Logging/Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000000D /* Core/Logging/Logger.swift */; };
-		AA00000E000000000000000E /* Config/PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000000E /* Config/PrivacyInfo.xcprivacy */; };
-		AA00000F000000000000000F /* Features/Rules/RiskLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000000F /* Features/Rules/RiskLevel.swift */; };
-		AA0000100000000000000014 /* Features/Rules/CleanupRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000010 /* Features/Rules/CleanupRule.swift */; };
-		AA0000110000000000000015 /* Features/Rules/RuleMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000011 /* Features/Rules/RuleMatch.swift */; };
-		AA0000120000000000000016 /* Features/Rules/RuleMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000012 /* Features/Rules/RuleMatcher.swift */; };
-		AA0000130000000000000017 /* Features/Rules/BuiltInRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000013 /* Features/Rules/BuiltInRules.swift */; };
+		AA00000C000000000000000C /* DiskCleanerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000000C /* DiskCleanerError.swift */; };
+		AA00000D000000000000000D /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000000D /* Logger.swift */; };
+		AA00000E000000000000000E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000000E /* PrivacyInfo.xcprivacy */; };
+		AA00000F000000000000000F /* RiskLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000000F /* RiskLevel.swift */; };
+		AA0000100000000000000014 /* CleanupRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000010 /* CleanupRule.swift */; };
+		AA0000110000000000000015 /* RuleMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000011 /* RuleMatch.swift */; };
+		AA0000120000000000000016 /* RuleMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000012 /* RuleMatcher.swift */; };
+		AA0000130000000000000017 /* BuiltInRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000013 /* BuiltInRules.swift */; };
 		AA0000140000000000000018 /* RuleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0002010000000000000003 /* RuleTests.swift */; };
-		AA0000150000000000000019 /* Features/AI/Prompts/AnalysisContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000014 /* Features/AI/Prompts/AnalysisContext.swift */; };
-		AA000016000000000000001A /* Features/AI/Prompts/PromptTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000015 /* Features/AI/Prompts/PromptTemplate.swift */; };
-		AA000017000000000000001B /* Features/AI/Prompts/PathSanitizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000016 /* Features/AI/Prompts/PathSanitizer.swift */; };
-		AA000018000000000000001C /* Features/AI/Prompts/Templates.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000017 /* Features/AI/Prompts/Templates.swift */; };
-		AA000019000000000000001D /* Features/AI/Prompts/PromptManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000018 /* Features/AI/Prompts/PromptManager.swift */; };
+		AA0000150000000000000019 /* AnalysisContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000014 /* AnalysisContext.swift */; };
+		AA000016000000000000001A /* PromptTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000015 /* PromptTemplate.swift */; };
+		AA000017000000000000001B /* PathSanitizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000016 /* PathSanitizer.swift */; };
+		AA000018000000000000001C /* Templates.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000017 /* Templates.swift */; };
+		AA000019000000000000001D /* PromptManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000018 /* PromptManager.swift */; };
 		AA00001A000000000000001E /* PromptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0002010000000000000004 /* PromptTests.swift */; };
-		AA00001B000000000000001F /* Features/AI/Client/AIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000019 /* Features/AI/Client/AIModels.swift */; };
-		AA00001C0000000000000020 /* Features/AI/Client/KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000001A /* Features/AI/Client/KeychainManager.swift */; };
-		AA00001D0000000000000021 /* Features/AI/Client/AIRequestQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000001B /* Features/AI/Client/AIRequestQueue.swift */; };
-		AA00001E0000000000000022 /* Features/AI/Client/AIAnalysisCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000001C /* Features/AI/Client/AIAnalysisCache.swift */; };
-		AA00001F0000000000000023 /* Features/AI/Client/LLMClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000001D /* Features/AI/Client/LLMClient.swift */; };
-		AA0000200000000000000024 /* ViewModels/SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000001E /* ViewModels/SettingsViewModel.swift */; };
-		AA0000210000000000000025 /* Views/SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000001F /* Views/SettingsView.swift */; };
-		AA0000220000000000000026 /* Features/AI/AIAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000020 /* Features/AI/AIAnalyzer.swift */; };
+		AA00001B000000000000001F /* AIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000019 /* AIModels.swift */; };
+		AA00001C0000000000000020 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000001A /* KeychainManager.swift */; };
+		AA00001D0000000000000021 /* AIRequestQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000001B /* AIRequestQueue.swift */; };
+		AA00001E0000000000000022 /* AIAnalysisCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000001C /* AIAnalysisCache.swift */; };
+		AA00001F0000000000000023 /* LLMClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000001D /* LLMClient.swift */; };
+		AA0000200000000000000024 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000001E /* SettingsViewModel.swift */; };
+		AA0000210000000000000025 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000001F /* SettingsView.swift */; };
+		AA0000220000000000000026 /* AIAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000020 /* AIAnalyzer.swift */; };
 		AA0000230000000000000027 /* CandidateItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000021 /* CandidateItem.swift */; };
-		AA0000240000000000000028 /* Features/Trash/TrashRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000022 /* Features/Trash/TrashRecord.swift */; };
-		AA0000250000000000000029 /* Features/Trash/AuditLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000023 /* Features/Trash/AuditLog.swift */; };
-		AA000026000000000000002A /* Features/Trash/TrashManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000024 /* Features/Trash/TrashManager.swift */; };
-		AA000027000000000000002B /* Features/Updates/UpdateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000025 /* Features/Updates/UpdateManager.swift */; };
-		AA000028000000000000002C /* Views/AuditLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000026 /* Views/AuditLogView.swift */; };
+		AA0000240000000000000028 /* TrashRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000022 /* TrashRecord.swift */; };
+		AA0000250000000000000029 /* AuditLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000023 /* AuditLog.swift */; };
+		AA000026000000000000002A /* TrashManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000024 /* TrashManager.swift */; };
+		AA000027000000000000002B /* UpdateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000025 /* UpdateManager.swift */; };
+		AA000028000000000000002C /* AuditLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000026 /* AuditLogView.swift */; };
+		B68C725B9CF124F5D47A2FCD /* CleanupStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C9CFB160427C98CC3BB45B /* CleanupStatistics.swift */; };
+		E28C6B6D141598540A4365CA /* CategoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818864312CBD38A592D45622 /* CategoryManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,50 +69,58 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		32C9CFB160427C98CC3BB45B /* CleanupStatistics.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CleanupStatistics.swift; sourceTree = "<group>"; };
+		33CA5D98286AAFC39089D192 /* ScanCategory.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ScanCategory.swift; sourceTree = "<group>"; };
+		6C896A4F2773A4493E951B17 /* ScanSession.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ScanSession.swift; sourceTree = "<group>"; };
+		818864312CBD38A592D45622 /* CategoryManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CategoryManager.swift; sourceTree = "<group>"; };
 		AA0001010000000000000001 /* MacOSAIDiskCleanerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSAIDiskCleanerApp.swift; sourceTree = "<group>"; };
 		AA0001010000000000000002 /* ScannedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedItem.swift; sourceTree = "<group>"; };
 		AA0001010000000000000003 /* BatchUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchUpdater.swift; sourceTree = "<group>"; };
-		AA0001010000000000000004 /* Core/Permissions/PermissionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/Permissions/PermissionManager.swift; sourceTree = "<group>"; };
-		AA0001010000000000000005 /* Features/Scanner/FileScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Scanner/FileScanner.swift; sourceTree = "<group>"; };
+		AA0001010000000000000004 /* PermissionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/Permissions/PermissionManager.swift; sourceTree = "<group>"; };
+		AA0001010000000000000005 /* FileScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Scanner/FileScanner.swift; sourceTree = "<group>"; };
 		AA0001010000000000000006 /* DiskCleanerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskCleanerViewModel.swift; sourceTree = "<group>"; };
 		AA0001010000000000000007 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		AA0001010000000000000008 /* PermissionOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionOnboardingView.swift; sourceTree = "<group>"; };
 		AA0001010000000000000009 /* DiskUsageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskUsageHeaderView.swift; sourceTree = "<group>"; };
 		AA000101000000000000000A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AA000101000000000000000B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AA000101000000000000000C /* Core/Errors/DiskCleanerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/Errors/DiskCleanerError.swift; sourceTree = "<group>"; };
-		AA000101000000000000000D /* Core/Logging/Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/Logging/Logger.swift; sourceTree = "<group>"; };
-		AA000101000000000000000E /* Config/PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Config/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		AA000101000000000000000F /* Features/Rules/RiskLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Rules/RiskLevel.swift; sourceTree = "<group>"; };
-		AA0001010000000000000010 /* Features/Rules/CleanupRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Rules/CleanupRule.swift; sourceTree = "<group>"; };
-		AA0001010000000000000011 /* Features/Rules/RuleMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Rules/RuleMatch.swift; sourceTree = "<group>"; };
-		AA0001010000000000000012 /* Features/Rules/RuleMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Rules/RuleMatcher.swift; sourceTree = "<group>"; };
-		AA0001010000000000000013 /* Features/Rules/BuiltInRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Rules/BuiltInRules.swift; sourceTree = "<group>"; };
-		AA0001010000000000000014 /* Features/AI/Prompts/AnalysisContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/Prompts/AnalysisContext.swift; sourceTree = "<group>"; };
-		AA0001010000000000000015 /* Features/AI/Prompts/PromptTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/Prompts/PromptTemplate.swift; sourceTree = "<group>"; };
-		AA0001010000000000000016 /* Features/AI/Prompts/PathSanitizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/Prompts/PathSanitizer.swift; sourceTree = "<group>"; };
-		AA0001010000000000000017 /* Features/AI/Prompts/Templates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/Prompts/Templates.swift; sourceTree = "<group>"; };
-		AA0001010000000000000018 /* Features/AI/Prompts/PromptManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/Prompts/PromptManager.swift; sourceTree = "<group>"; };
-		AA0001010000000000000019 /* Features/AI/Client/AIModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/Client/AIModels.swift; sourceTree = "<group>"; };
-		AA000101000000000000001A /* Features/AI/Client/KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/Client/KeychainManager.swift; sourceTree = "<group>"; };
-		AA000101000000000000001B /* Features/AI/Client/AIRequestQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/Client/AIRequestQueue.swift; sourceTree = "<group>"; };
-		AA000101000000000000001C /* Features/AI/Client/AIAnalysisCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/Client/AIAnalysisCache.swift; sourceTree = "<group>"; };
-		AA000101000000000000001D /* Features/AI/Client/LLMClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/Client/LLMClient.swift; sourceTree = "<group>"; };
-		AA000101000000000000001E /* ViewModels/SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModels/SettingsViewModel.swift; sourceTree = "<group>"; };
-		AA000101000000000000001F /* Views/SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/SettingsView.swift; sourceTree = "<group>"; };
-		AA0001010000000000000020 /* Features/AI/AIAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/AIAnalyzer.swift; sourceTree = "<group>"; };
+		AA000101000000000000000C /* DiskCleanerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/Errors/DiskCleanerError.swift; sourceTree = "<group>"; };
+		AA000101000000000000000D /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/Logging/Logger.swift; sourceTree = "<group>"; };
+		AA000101000000000000000E /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Config/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		AA000101000000000000000F /* RiskLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Rules/RiskLevel.swift; sourceTree = "<group>"; };
+		AA0001010000000000000010 /* CleanupRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Rules/CleanupRule.swift; sourceTree = "<group>"; };
+		AA0001010000000000000011 /* RuleMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Rules/RuleMatch.swift; sourceTree = "<group>"; };
+		AA0001010000000000000012 /* RuleMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Rules/RuleMatcher.swift; sourceTree = "<group>"; };
+		AA0001010000000000000013 /* BuiltInRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Rules/BuiltInRules.swift; sourceTree = "<group>"; };
+		AA0001010000000000000014 /* AnalysisContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/Prompts/AnalysisContext.swift; sourceTree = "<group>"; };
+		AA0001010000000000000015 /* PromptTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/Prompts/PromptTemplate.swift; sourceTree = "<group>"; };
+		AA0001010000000000000016 /* PathSanitizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/Prompts/PathSanitizer.swift; sourceTree = "<group>"; };
+		AA0001010000000000000017 /* Templates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/Prompts/Templates.swift; sourceTree = "<group>"; };
+		AA0001010000000000000018 /* PromptManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/Prompts/PromptManager.swift; sourceTree = "<group>"; };
+		AA0001010000000000000019 /* AIModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/Client/AIModels.swift; sourceTree = "<group>"; };
+		AA000101000000000000001A /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/Client/KeychainManager.swift; sourceTree = "<group>"; };
+		AA000101000000000000001B /* AIRequestQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/Client/AIRequestQueue.swift; sourceTree = "<group>"; };
+		AA000101000000000000001C /* AIAnalysisCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/Client/AIAnalysisCache.swift; sourceTree = "<group>"; };
+		AA000101000000000000001D /* LLMClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/Client/LLMClient.swift; sourceTree = "<group>"; };
+		AA000101000000000000001E /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModels/SettingsViewModel.swift; sourceTree = "<group>"; };
+		AA000101000000000000001F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/SettingsView.swift; sourceTree = "<group>"; };
+		AA0001010000000000000020 /* AIAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/AI/AIAnalyzer.swift; sourceTree = "<group>"; };
 		AA0001010000000000000021 /* CandidateItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateItem.swift; sourceTree = "<group>"; };
-		AA0001010000000000000022 /* Features/Trash/TrashRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Trash/TrashRecord.swift; sourceTree = "<group>"; };
-		AA0001010000000000000023 /* Features/Trash/AuditLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Trash/AuditLog.swift; sourceTree = "<group>"; };
-		AA0001010000000000000024 /* Features/Trash/TrashManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Trash/TrashManager.swift; sourceTree = "<group>"; };
-		AA0001010000000000000025 /* Features/Updates/UpdateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Updates/UpdateManager.swift; sourceTree = "<group>"; };
-		AA0001010000000000000026 /* Views/AuditLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/AuditLogView.swift; sourceTree = "<group>"; };
+		AA0001010000000000000022 /* TrashRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Trash/TrashRecord.swift; sourceTree = "<group>"; };
+		AA0001010000000000000023 /* AuditLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Trash/AuditLog.swift; sourceTree = "<group>"; };
+		AA0001010000000000000024 /* TrashManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Trash/TrashManager.swift; sourceTree = "<group>"; };
+		AA0001010000000000000025 /* UpdateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Updates/UpdateManager.swift; sourceTree = "<group>"; };
+		AA0001010000000000000026 /* AuditLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/AuditLogView.swift; sourceTree = "<group>"; };
 		AA0002000000000000000000 /* MacOSAIDiskCleaner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = MacOSAIDiskCleaner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA0002010000000000000000 /* MacOSAIDiskCleanerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = MacOSAIDiskCleanerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA0002010000000000000001 /* ScannerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerTests.swift; sourceTree = "<group>"; };
 		AA0002010000000000000002 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA0002010000000000000003 /* RuleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleTests.swift; sourceTree = "<group>"; };
 		AA0002010000000000000004 /* PromptTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptTests.swift; sourceTree = "<group>"; };
+		B4B3E1E2880A03A5B6CACD67 /* TemplateManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Features/AI/Prompts/TemplateManager.swift; sourceTree = "<group>"; };
+		DBB3D3DBC07F5B9230D619D7 /* StatisticsViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StatisticsViewModel.swift; sourceTree = "<group>"; };
+		DE390854792BA968AECF74C9 /* StatisticsDashboardView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StatisticsDashboardView.swift; sourceTree = "<group>"; };
+		ECEB8560AC36161FD5AA50E5 /* StatisticsManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StatisticsManager.swift; path = Features/Statistics/StatisticsManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +142,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		641680D455CD3E3600097AE0 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				818864312CBD38A592D45622 /* CategoryManager.swift */,
+			);
+			name = Categories;
+			path = Features/Categories;
+			sourceTree = "<group>";
+		};
 		AA0000F000000000000000F0 = {
 			isa = PBXGroup;
 			children = (
@@ -145,33 +170,36 @@
 				AA0000F14000000000000040 /* Services */,
 				AA0000F15000000000000050 /* Utils */,
 				AA000101000000000000000A /* Assets.xcassets */,
-				AA000101000000000000000C /* Core/Errors/DiskCleanerError.swift */,
-				AA000101000000000000000D /* Core/Logging/Logger.swift */,
-				AA000101000000000000000E /* Config/PrivacyInfo.xcprivacy */,
-				AA000101000000000000000F /* Features/Rules/RiskLevel.swift */,
-				AA0001010000000000000010 /* Features/Rules/CleanupRule.swift */,
-				AA0001010000000000000011 /* Features/Rules/RuleMatch.swift */,
-				AA0001010000000000000012 /* Features/Rules/RuleMatcher.swift */,
-				AA0001010000000000000013 /* Features/Rules/BuiltInRules.swift */,
-				AA0001010000000000000014 /* Features/AI/Prompts/AnalysisContext.swift */,
-				AA0001010000000000000015 /* Features/AI/Prompts/PromptTemplate.swift */,
-				AA0001010000000000000016 /* Features/AI/Prompts/PathSanitizer.swift */,
-				AA0001010000000000000017 /* Features/AI/Prompts/Templates.swift */,
-				AA0001010000000000000018 /* Features/AI/Prompts/PromptManager.swift */,
-				AA0001010000000000000019 /* Features/AI/Client/AIModels.swift */,
-				AA000101000000000000001A /* Features/AI/Client/KeychainManager.swift */,
-				AA000101000000000000001B /* Features/AI/Client/AIRequestQueue.swift */,
-				AA000101000000000000001C /* Features/AI/Client/AIAnalysisCache.swift */,
-				AA000101000000000000001D /* Features/AI/Client/LLMClient.swift */,
-				AA000101000000000000001E /* ViewModels/SettingsViewModel.swift */,
-				AA000101000000000000001F /* Views/SettingsView.swift */,
-				AA0001010000000000000020 /* Features/AI/AIAnalyzer.swift */,
-				AA0001010000000000000022 /* Features/Trash/TrashRecord.swift */,
-				AA0001010000000000000023 /* Features/Trash/AuditLog.swift */,
-				AA0001010000000000000024 /* Features/Trash/TrashManager.swift */,
-				AA0001010000000000000025 /* Features/Updates/UpdateManager.swift */,
-				AA0001010000000000000026 /* Views/AuditLogView.swift */,
+				AA000101000000000000000C /* DiskCleanerError.swift */,
+				AA000101000000000000000D /* Logger.swift */,
+				AA000101000000000000000E /* PrivacyInfo.xcprivacy */,
+				AA000101000000000000000F /* RiskLevel.swift */,
+				AA0001010000000000000010 /* CleanupRule.swift */,
+				AA0001010000000000000011 /* RuleMatch.swift */,
+				AA0001010000000000000012 /* RuleMatcher.swift */,
+				AA0001010000000000000013 /* BuiltInRules.swift */,
+				AA0001010000000000000014 /* AnalysisContext.swift */,
+				AA0001010000000000000015 /* PromptTemplate.swift */,
+				AA0001010000000000000016 /* PathSanitizer.swift */,
+				AA0001010000000000000017 /* Templates.swift */,
+				AA0001010000000000000018 /* PromptManager.swift */,
+				AA0001010000000000000019 /* AIModels.swift */,
+				AA000101000000000000001A /* KeychainManager.swift */,
+				AA000101000000000000001B /* AIRequestQueue.swift */,
+				AA000101000000000000001C /* AIAnalysisCache.swift */,
+				AA000101000000000000001D /* LLMClient.swift */,
+				AA000101000000000000001E /* SettingsViewModel.swift */,
+				AA000101000000000000001F /* SettingsView.swift */,
+				AA0001010000000000000020 /* AIAnalyzer.swift */,
+				AA0001010000000000000022 /* TrashRecord.swift */,
+				AA0001010000000000000023 /* AuditLog.swift */,
+				AA0001010000000000000024 /* TrashManager.swift */,
+				AA0001010000000000000025 /* UpdateManager.swift */,
+				AA0001010000000000000026 /* AuditLogView.swift */,
 				AA000101000000000000000B /* Info.plist */,
+				641680D455CD3E3600097AE0 /* Categories */,
+				B4B3E1E2880A03A5B6CACD67 /* TemplateManager.swift */,
+				ECEB8560AC36161FD5AA50E5 /* StatisticsManager.swift */,
 			);
 			path = MacOSAIDiskCleaner;
 			sourceTree = "<group>";
@@ -181,6 +209,9 @@
 			children = (
 				AA0001010000000000000002 /* ScannedItem.swift */,
 				AA0001010000000000000021 /* CandidateItem.swift */,
+				33CA5D98286AAFC39089D192 /* ScanCategory.swift */,
+				6C896A4F2773A4493E951B17 /* ScanSession.swift */,
+				E76470884A5B4DA1DA072DA9 /* Statistics */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -189,6 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				AA0001010000000000000006 /* DiskCleanerViewModel.swift */,
+				DBB3D3DBC07F5B9230D619D7 /* StatisticsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -199,6 +231,7 @@
 				AA0001010000000000000007 /* MainView.swift */,
 				AA0001010000000000000008 /* PermissionOnboardingView.swift */,
 				AA0001010000000000000009 /* DiskUsageHeaderView.swift */,
+				DE390854792BA968AECF74C9 /* StatisticsDashboardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -206,8 +239,8 @@
 		AA0000F14000000000000040 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				AA0001010000000000000004 /* Core/Permissions/PermissionManager.swift */,
-				AA0001010000000000000005 /* Features/Scanner/FileScanner.swift */,
+				AA0001010000000000000004 /* PermissionManager.swift */,
+				AA0001010000000000000005 /* FileScanner.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -238,6 +271,15 @@
 				AA0002010000000000000000 /* MacOSAIDiskCleanerTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		E76470884A5B4DA1DA072DA9 /* Statistics */ = {
+			isa = PBXGroup;
+			children = (
+				32C9CFB160427C98CC3BB45B /* CleanupStatistics.swift */,
+			);
+			name = Statistics;
+			path = Statistics;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -307,7 +349,7 @@
 			);
 			mainGroup = AA0000F000000000000000F0;
 			packageReferences = (
-				A0F5EE1D2F2469DB000FC358 /* XCLocalSwiftPackageReference "../Sparkle" */,
+				A0F5EE1D2F2469DB000FC358 /* XCLocalSwiftPackageReference "Sparkle" */,
 			);
 			productRefGroup = AA0000FF00000000000000FF /* Products */;
 			projectDirPath = "";
@@ -325,7 +367,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA00000A000000000000000A /* Assets.xcassets in Resources */,
-				AA00000E000000000000000E /* Config/PrivacyInfo.xcprivacy in Resources */,
+				AA00000E000000000000000E /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,38 +381,46 @@
 				AA0000010000000000000001 /* MacOSAIDiskCleanerApp.swift in Sources */,
 				AA0000020000000000000002 /* ScannedItem.swift in Sources */,
 				AA0000030000000000000003 /* BatchUpdater.swift in Sources */,
-				AA0000040000000000000004 /* Core/Permissions/PermissionManager.swift in Sources */,
-				AA0000050000000000000005 /* Features/Scanner/FileScanner.swift in Sources */,
+				AA0000040000000000000004 /* PermissionManager.swift in Sources */,
+				AA0000050000000000000005 /* FileScanner.swift in Sources */,
 				AA0000060000000000000006 /* DiskCleanerViewModel.swift in Sources */,
 				AA0000070000000000000007 /* MainView.swift in Sources */,
 				AA0000080000000000000008 /* PermissionOnboardingView.swift in Sources */,
 				AA0000090000000000000009 /* DiskUsageHeaderView.swift in Sources */,
-				AA00000C000000000000000C /* Core/Errors/DiskCleanerError.swift in Sources */,
-				AA00000D000000000000000D /* Core/Logging/Logger.swift in Sources */,
-				AA00000F000000000000000F /* Features/Rules/RiskLevel.swift in Sources */,
-				AA0000100000000000000014 /* Features/Rules/CleanupRule.swift in Sources */,
-				AA0000110000000000000015 /* Features/Rules/RuleMatch.swift in Sources */,
-				AA0000120000000000000016 /* Features/Rules/RuleMatcher.swift in Sources */,
-				AA0000130000000000000017 /* Features/Rules/BuiltInRules.swift in Sources */,
-				AA0000150000000000000019 /* Features/AI/Prompts/AnalysisContext.swift in Sources */,
-				AA000016000000000000001A /* Features/AI/Prompts/PromptTemplate.swift in Sources */,
-				AA000017000000000000001B /* Features/AI/Prompts/PathSanitizer.swift in Sources */,
-				AA000018000000000000001C /* Features/AI/Prompts/Templates.swift in Sources */,
-				AA000019000000000000001D /* Features/AI/Prompts/PromptManager.swift in Sources */,
-				AA00001B000000000000001F /* Features/AI/Client/AIModels.swift in Sources */,
-				AA00001C0000000000000020 /* Features/AI/Client/KeychainManager.swift in Sources */,
-				AA00001D0000000000000021 /* Features/AI/Client/AIRequestQueue.swift in Sources */,
-				AA00001E0000000000000022 /* Features/AI/Client/AIAnalysisCache.swift in Sources */,
-				AA00001F0000000000000023 /* Features/AI/Client/LLMClient.swift in Sources */,
-				AA0000200000000000000024 /* ViewModels/SettingsViewModel.swift in Sources */,
-				AA0000210000000000000025 /* Views/SettingsView.swift in Sources */,
-				AA0000220000000000000026 /* Features/AI/AIAnalyzer.swift in Sources */,
+				AA00000C000000000000000C /* DiskCleanerError.swift in Sources */,
+				AA00000D000000000000000D /* Logger.swift in Sources */,
+				AA00000F000000000000000F /* RiskLevel.swift in Sources */,
+				AA0000100000000000000014 /* CleanupRule.swift in Sources */,
+				AA0000110000000000000015 /* RuleMatch.swift in Sources */,
+				AA0000120000000000000016 /* RuleMatcher.swift in Sources */,
+				AA0000130000000000000017 /* BuiltInRules.swift in Sources */,
+				AA0000150000000000000019 /* AnalysisContext.swift in Sources */,
+				AA000016000000000000001A /* PromptTemplate.swift in Sources */,
+				AA000017000000000000001B /* PathSanitizer.swift in Sources */,
+				AA000018000000000000001C /* Templates.swift in Sources */,
+				AA000019000000000000001D /* PromptManager.swift in Sources */,
+				AA00001B000000000000001F /* AIModels.swift in Sources */,
+				AA00001C0000000000000020 /* KeychainManager.swift in Sources */,
+				AA00001D0000000000000021 /* AIRequestQueue.swift in Sources */,
+				AA00001E0000000000000022 /* AIAnalysisCache.swift in Sources */,
+				AA00001F0000000000000023 /* LLMClient.swift in Sources */,
+				AA0000200000000000000024 /* SettingsViewModel.swift in Sources */,
+				AA0000210000000000000025 /* SettingsView.swift in Sources */,
+				AA0000220000000000000026 /* AIAnalyzer.swift in Sources */,
 				AA0000230000000000000027 /* CandidateItem.swift in Sources */,
-				AA0000240000000000000028 /* Features/Trash/TrashRecord.swift in Sources */,
-				AA0000250000000000000029 /* Features/Trash/AuditLog.swift in Sources */,
-				AA000026000000000000002A /* Features/Trash/TrashManager.swift in Sources */,
-				AA000027000000000000002B /* Features/Updates/UpdateManager.swift in Sources */,
-				AA000028000000000000002C /* Views/AuditLogView.swift in Sources */,
+				AA0000240000000000000028 /* TrashRecord.swift in Sources */,
+				AA0000250000000000000029 /* AuditLog.swift in Sources */,
+				AA000026000000000000002A /* TrashManager.swift in Sources */,
+				AA000027000000000000002B /* UpdateManager.swift in Sources */,
+				AA000028000000000000002C /* AuditLogView.swift in Sources */,
+				0ACC2E80B1B907489CCEBD81 /* ScanCategory.swift in Sources */,
+				6623F13C4FF2DC971E32B88D /* ScanSession.swift in Sources */,
+				B68C725B9CF124F5D47A2FCD /* CleanupStatistics.swift in Sources */,
+				E28C6B6D141598540A4365CA /* CategoryManager.swift in Sources */,
+				2C21F26370DF86D75C9BF1B2 /* TemplateManager.swift in Sources */,
+				62B7CFE138A37082BE07B744 /* StatisticsManager.swift in Sources */,
+				166E7AE84344FBAB5AD1C9F9 /* StatisticsViewModel.swift in Sources */,
+				2AE1AD4344C58C6C3E0F7361 /* StatisticsDashboardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -621,7 +671,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		A0F5EE1D2F2469DB000FC358 /* XCLocalSwiftPackageReference "../Sparkle" */ = {
+		A0F5EE1D2F2469DB000FC358 /* XCLocalSwiftPackageReference "Sparkle" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../Sparkle;
 		};
