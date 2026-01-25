@@ -1,25 +1,37 @@
 .DS_Store
+.AppleDouble
+.LSOverride
 
-# Xcode
-DerivedData/
-*.xcuserdata/
-*.xcscmblueprint
-*.xccheckout
-*.moved-aside
-*.xcuserstate
+# Icon must end with two \r
+Icon
 
-# SwiftPM
-.build/
-Package.resolved
 
-# Logs
-*.log
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
 # Xcode
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
 ## User settings
 xcuserdata/
+*.xcuserdatad
 
 ## Obj-C/Swift specific
 *.hmap
@@ -28,6 +40,7 @@ xcuserdata/
 *.ipa
 *.dSYM.zip
 *.dSYM
+*.app
 
 ## Playgrounds
 timeline.xctimeline
@@ -46,6 +59,7 @@ playground.xcworkspace
 # .swiftpm
 
 .build/
+Package.resolved
 
 # CocoaPods
 #
@@ -80,12 +94,27 @@ fastlane/test_output
 # App Build and Release
 build/
 dist/
+build_verify/
 DerivedData/
 *.dmg
-*.png
+nanobanana-output/
+
+# Logs
+*.log
+
+# Python
 .venv/
-generate_bg.py
-publish.sh
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+.ipynb_checkpoints/
+
+# Ruby
+.bundle/
+vendor/bundle/
+Gemfile.lock
 
 # Sparkle Local Tools & Vendor
 Vendor/Sparkle/
