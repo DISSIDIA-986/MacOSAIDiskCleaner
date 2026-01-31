@@ -40,6 +40,12 @@
 		AA000018000000000000001C /* Templates.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000017 /* Templates.swift */; };
 		AA000019000000000000001D /* PromptManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000018 /* PromptManager.swift */; };
 		AA00001A000000000000001E /* PromptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0002010000000000000004 /* PromptTests.swift */; };
+		AA0002020000000000000005 /* StatisticsManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0002010000000000000005 /* StatisticsManagerTests.swift */; };
+		AA0002020000000000000006 /* ScanCategoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0002010000000000000006 /* ScanCategoryTests.swift */; };
+		AA0002020000000000000007 /* ScanSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0002010000000000000007 /* ScanSessionTests.swift */; };
+		AA0002020000000000000008 /* CategoryManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0002010000000000000008 /* CategoryManagerTests.swift */; };
+		AA0002020000000000000009 /* TemplateManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0002010000000000000009 /* TemplateManagerTests.swift */; };
+		AA000202000000000000000A /* CandidateItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000201000000000000000A /* CandidateItemTests.swift */; };
 		AA00001B000000000000001F /* AIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001010000000000000019 /* AIModels.swift */; };
 		AA00001C0000000000000020 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000001A /* KeychainManager.swift */; };
 		AA00001D0000000000000021 /* AIRequestQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000101000000000000001B /* AIRequestQueue.swift */; };
@@ -117,6 +123,12 @@
 		AA0002010000000000000002 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA0002010000000000000003 /* RuleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleTests.swift; sourceTree = "<group>"; };
 		AA0002010000000000000004 /* PromptTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptTests.swift; sourceTree = "<group>"; };
+		AA0002010000000000000005 /* StatisticsManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsManagerTests.swift; sourceTree = "<group>"; };
+		AA0002010000000000000006 /* ScanCategoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanCategoryTests.swift; sourceTree = "<group>"; };
+		AA0002010000000000000007 /* ScanSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanSessionTests.swift; sourceTree = "<group>"; };
+		AA0002010000000000000008 /* CategoryManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryManagerTests.swift; sourceTree = "<group>"; };
+		AA0002010000000000000009 /* TemplateManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateManagerTests.swift; sourceTree = "<group>"; };
+		AA000201000000000000000A /* CandidateItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateItemTests.swift; sourceTree = "<group>"; };
 		B4B3E1E2880A03A5B6CACD67 /* TemplateManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Features/AI/Prompts/TemplateManager.swift; sourceTree = "<group>"; };
 		DBB3D3DBC07F5B9230D619D7 /* StatisticsViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StatisticsViewModel.swift; sourceTree = "<group>"; };
 		DE390854792BA968AECF74C9 /* StatisticsDashboardView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StatisticsDashboardView.swift; sourceTree = "<group>"; };
@@ -259,6 +271,12 @@
 				AA0002010000000000000001 /* ScannerTests.swift */,
 				AA0002010000000000000003 /* RuleTests.swift */,
 				AA0002010000000000000004 /* PromptTests.swift */,
+				AA0002010000000000000005 /* StatisticsManagerTests.swift */,
+				AA0002010000000000000006 /* ScanCategoryTests.swift */,
+				AA0002010000000000000007 /* ScanSessionTests.swift */,
+				AA0002010000000000000008 /* CategoryManagerTests.swift */,
+				AA0002010000000000000009 /* TemplateManagerTests.swift */,
+				AA000201000000000000000A /* CandidateItemTests.swift */,
 				AA0002010000000000000002 /* Info.plist */,
 			);
 			path = MacOSAIDiskCleanerTests;
@@ -431,6 +449,12 @@
 				AA00000B000000000000000B /* ScannerTests.swift in Sources */,
 				AA0000140000000000000018 /* RuleTests.swift in Sources */,
 				AA00001A000000000000001E /* PromptTests.swift in Sources */,
+				AA0002020000000000000005 /* StatisticsManagerTests.swift in Sources */,
+				AA0002020000000000000006 /* ScanCategoryTests.swift in Sources */,
+				AA0002020000000000000007 /* ScanSessionTests.swift in Sources */,
+				AA0002020000000000000008 /* CategoryManagerTests.swift in Sources */,
+				AA0002020000000000000009 /* TemplateManagerTests.swift in Sources */,
+				AA000202000000000000000A /* CandidateItemTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
