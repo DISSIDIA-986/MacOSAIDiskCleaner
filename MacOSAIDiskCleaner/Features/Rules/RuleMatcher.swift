@@ -82,10 +82,19 @@ struct RuleMatcher: Sendable {
         guard activeSensitiveRuleIds.contains(rule.id) else { return false }
 
         let url = URL(fileURLWithPath: path)
-        var projectRoot: URL?
+        let cutoff = Date().addingTimeInterval(TimeInterval(-options.activeProjectDays * 24 * 3600))
 
+        // 🔧 P0 FIX: DerivedData 直接使用自身时间戳,不查找项目根目录
+        if rule.id == "xcode.deriveddata" {
+            if let modDate = (try? url.resourceValues(forKeys: [.contentModificationDateKey]))?.contentModificationDate {
+                return modDate >= cutoff
+            }
+            return false
+        }
+
+        // node_modules: 向上找项目根目录
+        var projectRoot: URL?
         if rule.id == "node_modules" {
-            // 在 path 内向上找到 node_modules，再取其父目录作为项目根目录
             var cur = url
             for _ in 0..<12 {
                 if cur.lastPathComponent == "node_modules" {
@@ -99,13 +108,9 @@ struct RuleMatcher: Sendable {
             if projectRoot == nil {
                 projectRoot = url.deletingLastPathComponent().deletingLastPathComponent()
             }
-        } else {
-            // DerivedData 路径结构比较复杂，这里只做弱判断：向上找一个含 .xcodeproj 或 .git 的目录
-            projectRoot = findNearestProjectRoot(startingAt: url)
         }
 
         guard let root = projectRoot else { return false }
-        let cutoff = Date().addingTimeInterval(TimeInterval(-options.activeProjectDays * 24 * 3600))
 
         let candidates: [URL] = [
             root.appendingPathComponent(".git/logs/HEAD"),
@@ -155,6 +160,7 @@ enum GlobMatcher {
     /// - `**` 跨目录
     /// - `*` 单段（不跨 `/`）
     /// - `?` 单字符（不跨 `/`）
+    /// 🔧 P0 FIX: 支持目录本身匹配（末尾可选 /）
     static func match(path: String, pattern: String) -> Bool {
         let regex = globToRegex(pattern)
         return RegexMatcher.match(path: path, pattern: regex)
@@ -196,7 +202,8 @@ enum GlobMatcher {
             advance()
         }
 
-        out += "$"
+        // 🔧 P0 FIX: 末尾支持可选 /（允许匹配目录本身）
+        out += "(/.*)?$"
         return out
     }
 }
