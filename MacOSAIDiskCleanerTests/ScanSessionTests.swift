@@ -17,6 +17,7 @@ final class ScanSessionTests: XCTestCase {
         )
         session.completedAt = end
         session.status = .completed
-        XCTAssertEqual(session.duration, 5, accuracy: 0.001)
+        XCTAssertNotNil(session.duration)
+        XCTAssertEqual(session.duration!, 5, accuracy: 0.001)
     }
 }
