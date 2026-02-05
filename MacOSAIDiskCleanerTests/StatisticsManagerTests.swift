@@ -2,6 +2,29 @@ import XCTest
 @testable import MacOSAIDiskCleaner
 
 final class StatisticsManagerTests: XCTestCase {
+    override func setUp() {
+        super.setUp()
+        // 清理测试数据：删除持久化的统计文件
+        let fm = FileManager.default
+        let base = fm.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+            .appendingPathComponent("MacOSAIDiskCleaner", isDirectory: true)
+        let statsURL = base.appendingPathComponent("statistics.json")
+
+        try? fm.removeItem(at: statsURL)
+    }
+
+    override func tearDown() {
+        // 清理测试数据
+        let fm = FileManager.default
+        let base = fm.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+            .appendingPathComponent("MacOSAIDiskCleaner", isDirectory: true)
+        let statsURL = base.appendingPathComponent("statistics.json")
+
+        try? fm.removeItem(at: statsURL)
+
+        super.tearDown()
+    }
+
     func testRecordCleanupUpdatesAggregates() async {
         let sm = StatisticsManager()
         let sessionId = UUID()
@@ -17,7 +40,9 @@ final class StatisticsManagerTests: XCTestCase {
             byAIRecommendation: 0,
             byManualSelection: 0
         )
+
         await sm.recordCleanup(stats, ruleBreakdown: [("r1","Rule 1",2,1024)])
+
         let agg = await sm.getAggregatedStats()
         XCTAssertEqual(agg.totalItemsTrashed, 2)
         XCTAssertEqual(agg.totalBytesFreed, 1024)
@@ -37,6 +62,7 @@ final class StatisticsManagerTests: XCTestCase {
             aiAnalyzedCount: 0,
             status: .inProgress
         )
+
         await sm.recordSessionStart(session)
         await sm.recordSessionComplete(sessionId, itemsMatched: 10, bytesMatched: 2048)
 
