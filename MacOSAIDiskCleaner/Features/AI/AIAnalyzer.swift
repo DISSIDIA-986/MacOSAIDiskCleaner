@@ -42,9 +42,11 @@ actor AIAnalyzer {
             developerProfile: developerProfile
         )
         let sanitizedPath = PathSanitizer.sanitize(context.path)
-        // Use glob pattern for cache key (per implementation plan)
+
+        // 🔧 FIX: 包含路径哈希防止缓存键碰撞
+        let pathHash = context.path.hashValue
         let globPattern = makeGlobPattern(for: context.path, matchedRule: context.matchedRuleId)
-        let cacheKey = "\(templateId)|\(globPattern)"
+        let cacheKey = "\(templateId)|\(globPattern)|\(pathHash)"
 
         if let cached = await cache.get(key: cacheKey) {
             return cached
