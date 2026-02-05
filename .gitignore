@@ -1,37 +1,26 @@
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Icon must end with two \r
-Icon
-
-
-# Thumbnails
-._*
-
-# Files that might appear in the root of a volume
-.DocumentRevisions-V100
-.fseventsd
-.Spotlight-V100
-.TemporaryItems
-.Trashes
-.VolumeIcon.icns
-.com.apple.timemachine.donotpresent
-
-# Directories potentially created on remote AFP share
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
-
 # Xcode
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
 ## User settings
 xcuserdata/
-*.xcuserdatad
+
+## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
+*.xcscmblueprint
+*.xccheckout
+
+## compatibility with Xcode 3 and earlier (ignoring not required starting Xcode 4)
+build/
+DerivedData/
+*.moved-aside
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
 
 ## Obj-C/Swift specific
 *.hmap
@@ -40,7 +29,6 @@ xcuserdata/
 *.ipa
 *.dSYM.zip
 *.dSYM
-*.app
 
 ## Playgrounds
 timeline.xctimeline
@@ -59,7 +47,6 @@ playground.xcworkspace
 # .swiftpm
 
 .build/
-Package.resolved
 
 # CocoaPods
 #
@@ -79,6 +66,10 @@ Package.resolved
 
 Carthage/Build/
 
+# Accio dependency management
+Dependencies/
+.accio/
+
 # fastlane
 #
 # It is recommended to not store the screenshots in the git repo.
@@ -91,34 +82,19 @@ fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
 
-# App Build and Release
-build/
-dist/
-build_verify/
-DerivedData/
-*.dmg
-nanobanana-output/
+# Code Injection
+#
+# After new code Injection tools there's a generated folder /iOSInjectionProject
+# https://github.com/johnno1962/injectionforxcode
 
-# Logs
-*.log
+iOSInjectionProject/
 
-# Python
-.venv/
-__pycache__/
-*.py[cod]
-*$py.class
-.pytest_cache/
-.coverage
-.ipynb_checkpoints/
+# Mac OS
+.DS_Store
 
-# Ruby
-.bundle/
-vendor/bundle/
-Gemfile.lock
+# Claude AI generated files (OpenClaw)
+CLAUDE.md
+.claude/
 
-# Sparkle Local Tools & Vendor
-Vendor/Sparkle/
-sparkle_bin/
-sparkle_tools.tar.xz
-sparkle_key.txt
-
+# Project specific
+project.pbxproj.bak
