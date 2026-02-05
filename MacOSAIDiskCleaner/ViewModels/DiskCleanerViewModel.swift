@@ -147,6 +147,7 @@ final class DiskCleanerViewModel: ObservableObject {
         scanTask?.cancel()
         permissionManager.refresh()
 
+        // 🔧 P0-3 FIX: 初始权限检查
         guard permissionManager.fullDiskAccessStatus == .granted else {
             scanState = .idle
             items = []
@@ -229,10 +230,33 @@ final class DiskCleanerViewModel: ObservableObject {
             do {
                 // 扫描每个根目录
                 for root in roots {
+                    // 🔧 P0-3 FIX: 在每个根目录扫描前持续检查权限
+                    let hasPermission = await MainActor.run { () -> Bool in
+                        self.permissionManager.refresh()
+                        guard self.permissionManager.fullDiskAccessStatus == .granted else {
+                            self.scanState = .failed("Permission revoked during scan")
+                            return false
+                        }
+                        return true
+                    }
+
+                    guard hasPermission else {
+                        await MainActor.run {
+                            self.scanState = .failed("Permission revoked during scan")
+                        }
+                        throw DiskCleanerError.permissionDenied("Full Disk Access revoked")
+                    }
+
                     try await self.scanner.scanTopLevelAggregates(
                         root: root,
                         onProgress: { progress in
+                            // 🔧 P0-3 FIX: 在进度回调时也检查权限
                             Task { @MainActor in
+                                self.permissionManager.refresh()
+                                guard self.permissionManager.fullDiskAccessStatus == .granted else {
+                                    self.scanState = .failed("Permission revoked during scan")
+                                    throw DiskCleanerError.permissionDenied("Full Disk Access revoked")
+                                }
                                 self.visitedFileCount = progress.visitedEntries
                                 self.scannedFileCount = progress.countedFiles
                                 self.scannedBytes = progress.countedBytes
@@ -389,9 +413,9 @@ final class DiskCleanerViewModel: ObservableObject {
         let sessionId = currentSession?.id ?? UUID()
         lastTrashSummary = nil
 
-        Task.detached(priority: .utility) { [weak self] in
+        Task.detached(priority: .utility) { [weak self, settings] in
             guard let self else { return }
-            let records = await self.trashManager.trash(items: targets, dryRun: dryRun)
+            let records = await self.trashManager.trash(items: targets, dryRun: dryRun, settings: settings)
 
             // 统计记录 (仅非dry-run)
             if !dryRun {
