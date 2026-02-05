@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 actor StatisticsManager {
     private let statsURL: URL
@@ -61,6 +62,25 @@ actor StatisticsManager {
 
     func recordSessionStart(_ session: ScanSession) {
         sessions[session.id] = session
+
+        // 自动清理旧会话（保留最近 50 个）
+        cleanupOldSessions()
+    }
+
+    /// 清理旧的扫描会话，防止内存泄漏
+    /// - Parameter keepCount: 保留的会话数量，默认 50
+    private func cleanupOldSessions(keepCount: Int = 50) {
+        guard sessions.count > keepCount else { return }
+
+        // 按开始时间排序，删除最旧的会话
+        let sortedSessions = self.sessions.sorted { $0.value.startedAt < $1.value.startedAt }
+        let toRemove = sortedSessions.prefix(self.sessions.count - keepCount)
+
+        for (id, _) in toRemove {
+            self.sessions.removeValue(forKey: id)
+        }
+
+        Logger.statistics.info("Cleaned up \(toRemove.count) old scan sessions, keeping \(self.sessions.count)")
     }
 
     func recordSessionComplete(_ sessionId: UUID, itemsMatched: Int, bytesMatched: Int64) {
@@ -92,6 +112,9 @@ actor StatisticsManager {
 
     func recordCleanup(_ stats: CleanupStatistics, ruleBreakdown: [(ruleId: String, ruleName: String, count: Int, bytes: Int64)]) {
         cleanupRecords.append(stats)
+
+        // 自动清理旧记录（保留最近 100 条）
+        cleanupOldCleanupRecords()
 
         // 更新聚合
         aggregatedStats.totalBytesFreed += stats.totalBytesFreed
@@ -192,6 +215,20 @@ actor StatisticsManager {
     private func persist() async throws {
         let data = try JSONEncoder().encode(aggregatedStats)
         try data.write(to: statsURL)
+    }
+
+    // MARK: - Memory Management
+
+    /// 清理旧的清理记录，防止内存泄漏
+    /// - Parameter keepCount: 保留的记录数量，默认 100
+    private func cleanupOldCleanupRecords(keepCount: Int = 100) {
+        guard self.cleanupRecords.count > keepCount else { return }
+
+        // 移除最旧的记录
+        let removeCount = self.cleanupRecords.count - keepCount
+        self.cleanupRecords.removeFirst(removeCount)
+
+        Logger.statistics.info("Cleaned up \(removeCount) old cleanup records, keeping \(self.cleanupRecords.count)")
     }
 
     // MARK: - Migration
