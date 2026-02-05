@@ -5,7 +5,10 @@ actor TrashManager {
     private let auditLog = AuditLog()
     private var lastBatch: [TrashRecord] = []
 
-    func trash(items: [CandidateItem], dryRun: Bool) async -> [TrashRecord] {
+    func trash(items: [CandidateItem], dryRun: Bool, settings: SettingsViewModel) async -> [TrashRecord] {
+        // 🔧 SECURITY FIX: 强制从设置读取 dry-run 状态，防止绕过
+        let actualDryRun = await settings.dryRun || dryRun
+
         let fm = FileManager.default
         var records: [TrashRecord] = []
         records.reserveCapacity(items.count)
@@ -15,8 +18,11 @@ actor TrashManager {
 
             let path = item.url.path
 
-            // extra safety: never trash protected system paths
-            if FileScanner.isProtectedSystemPath((path as NSString).standardizingPath) {
+            // 🔧 P0-2 FIX: extra safety - use canonical path to prevent symlink attacks
+            let canonicalPath = (try? item.url.resourceValues(forKeys: [.canonicalPathKey]))?.canonicalPath
+                              ?? (path as NSString).standardizingPath
+
+            if FileScanner.isProtectedSystemPath(canonicalPath) {
                 let r = TrashRecord(
                     originalPath: path,
                     trashedPath: nil,
@@ -24,7 +30,7 @@ actor TrashManager {
                     decisionSource: "manual",
                     matchedRuleId: item.ruleMatch?.rule.id,
                     aiRecommendedAction: item.aiAnalysis?.recommendedAction.rawValue,
-                    dryRun: dryRun,
+                    dryRun: actualDryRun,
                     success: false,
                     errorMessage: "Protected system path"
                 )
@@ -43,7 +49,7 @@ actor TrashManager {
                     decisionSource: "manual",
                     matchedRuleId: item.ruleMatch?.rule.id,
                     aiRecommendedAction: item.aiAnalysis?.recommendedAction.rawValue,
-                    dryRun: dryRun,
+                    dryRun: actualDryRun,
                     success: false,
                     errorMessage: "Non-local volume (no Trash support)"
                 )
@@ -52,7 +58,7 @@ actor TrashManager {
                 continue
             }
 
-            if dryRun {
+            if actualDryRun {
                 let r = TrashRecord(
                     originalPath: path,
                     trashedPath: nil,
@@ -60,7 +66,7 @@ actor TrashManager {
                     decisionSource: "manual",
                     matchedRuleId: item.ruleMatch?.rule.id,
                     aiRecommendedAction: item.aiAnalysis?.recommendedAction.rawValue,
-                    dryRun: true,
+                    dryRun: actualDryRun,
                     success: true,
                     errorMessage: nil
                 )
@@ -79,7 +85,7 @@ actor TrashManager {
                     decisionSource: "manual",
                     matchedRuleId: item.ruleMatch?.rule.id,
                     aiRecommendedAction: item.aiAnalysis?.recommendedAction.rawValue,
-                    dryRun: false,
+                    dryRun: actualDryRun,
                     success: true,
                     errorMessage: nil
                 )
@@ -93,7 +99,7 @@ actor TrashManager {
                     decisionSource: "manual",
                     matchedRuleId: item.ruleMatch?.rule.id,
                     aiRecommendedAction: item.aiAnalysis?.recommendedAction.rawValue,
-                    dryRun: false,
+                    dryRun: actualDryRun,
                     success: false,
                     errorMessage: error.localizedDescription
                 )
