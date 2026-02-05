@@ -39,7 +39,9 @@ actor FileScanner {
         onProgress: @Sendable (ScanProgress) -> Void,
         onUpdate: @Sendable (ScannedItem) -> Void
     ) throws {
-        let rootPath = (root.path as NSString).standardizingPath
+        // 🔧 P0 FIX: 使用 canonical path 防止符号链接绕过保护检查
+        let rootPath = (try? root.resourceValues(forKeys: [.canonicalPathKey]))?.canonicalPath
+                     ?? (root.path as NSString).standardizingPath
 
         if Self.isProtectedSystemPath(rootPath) {
             throw DiskCleanerError.permissionDenied(rootPath)
@@ -86,10 +88,12 @@ actor FileScanner {
             if Task.isCancelled { throw DiskCleanerError.scanCancelled }
             progress.visitedEntries += 1
 
-            let standardized = (url.path as NSString).standardizingPath
+            // 🔧 P0-2 FIX: 使用 canonical path 防止符号链接绕过保护检查
+            let canonicalPath = (try? url.resourceValues(forKeys: [.canonicalPathKey]))?.canonicalPath
+                              ?? (url.path as NSString).standardizingPath
 
             // 系统保护路径：跳过且不深入
-            if Self.isProtectedSystemPath(standardized) {
+            if Self.isProtectedSystemPath(canonicalPath) {
                 enumerator.skipDescendants()
                 continue
             }
@@ -133,8 +137,8 @@ actor FileScanner {
             progress.countedFiles += 1
             progress.countedBytes += size
 
-            guard standardized.hasPrefix(rootPath + "/") else { continue }
-            let relative = String(standardized.dropFirst((rootPath + "/").count))
+            guard canonicalPath.hasPrefix(rootPath + "/") else { continue }
+            let relative = String(canonicalPath.dropFirst((rootPath + "/").count))
             guard let firstComponent = relative.split(separator: "/", maxSplits: 1, omittingEmptySubsequences: true).first else { continue }
             let topURL = root.appendingPathComponent(String(firstComponent), isDirectory: false)
 
@@ -175,7 +179,9 @@ actor FileScanner {
     /// Quick estimate of total files in directory (for progress percentage).
     /// Uses skipDescendants to avoid deep traversal.
     nonisolated func estimateTotalFiles(root: URL) async -> Int {
-        let rootPath = (root.path as NSString).standardizingPath
+        // 🔧 P0-2 FIX: 使用 canonical path 防止符号链接绕过保护检查
+        let rootPath = (try? root.resourceValues(forKeys: [.canonicalPathKey]))?.canonicalPath
+                     ?? (root.path as NSString).standardizingPath
         guard !Self.isProtectedSystemPath(rootPath) else { return 0 }
         
         return await withCheckedContinuation { continuation in
