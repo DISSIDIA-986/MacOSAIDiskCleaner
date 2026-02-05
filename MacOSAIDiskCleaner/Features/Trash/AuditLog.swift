@@ -3,6 +3,7 @@ import os
 
 actor AuditLog {
     private let logURL: URL
+    private let fileQueue: DispatchQueue
 
     init() {
         let fm = FileManager.default
@@ -10,24 +11,30 @@ actor AuditLog {
             .appendingPathComponent("MacOSAIDiskCleaner", isDirectory: true)
         try? fm.createDirectory(at: base, withIntermediateDirectories: true)
         self.logURL = base.appendingPathComponent("audit.log", isDirectory: false)
+        // Serial queue to ensure thread-safe file writes
+        self.fileQueue = DispatchQueue(label: "com.niuyp.MacOSAIDiskCleaner.auditlog", qos: .utility)
     }
 
     func append(_ record: TrashRecord) {
-        do {
-            let data = try JSONEncoder().encode(record)
-            var line = data
-            line.append(0x0A) // newline
+        fileQueue.sync {
+            do {
+                let data = try JSONEncoder().encode(record)
+                var line = data
+                line.append(0x0A) // newline
 
-            if FileManager.default.fileExists(atPath: logURL.path) {
-                let handle = try FileHandle(forWritingTo: logURL)
-                try handle.seekToEnd()
-                try handle.write(contentsOf: line)
-                try handle.close()
-            } else {
-                try line.write(to: logURL)
+                if FileManager.default.fileExists(atPath: logURL.path) {
+                    let handle = try FileHandle(forWritingTo: logURL)
+                    defer {
+                        try? handle.close()
+                    }
+                    try handle.seekToEnd()
+                    try handle.write(contentsOf: line)
+                } else {
+                    try line.write(to: logURL)
+                }
+            } catch {
+                Logger.system.error("AuditLog append failed: \(error.localizedDescription)")
             }
-        } catch {
-            Logger.system.error("AuditLog append failed: \(error.localizedDescription)")
         }
     }
 
