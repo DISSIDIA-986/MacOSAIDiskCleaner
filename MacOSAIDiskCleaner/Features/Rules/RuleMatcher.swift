@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 struct RuleMatcher: Sendable {
     struct Options: Sendable {
@@ -161,7 +162,21 @@ enum GlobMatcher {
     /// - `*` 单段（不跨 `/`）
     /// - `?` 单字符（不跨 `/`）
     /// 🔧 P0 FIX: 支持目录本身匹配（末尾可选 /）
+    /// 🔧 P1 FIX: 限制模式复杂度防止 ReDoS
     static func match(path: String, pattern: String) -> Bool {
+        // 快速预检查：避免处理过于复杂的模式
+        guard pattern.count < 256 else {
+            Logger.scanner.warning("Glob pattern too long, skipping: \(pattern.prefix(50))")
+            return false
+        }
+
+        // 计算模式复杂度：** 的数量
+        let doubleStarCount = pattern.components(separatedBy: "**").count - 1
+        guard doubleStarCount <= 5 else {
+            Logger.scanner.warning("Glob pattern too complex (\(doubleStarCount) **), skipping")
+            return false
+        }
+
         let regex = globToRegex(pattern)
         return RegexMatcher.match(path: path, pattern: regex)
     }
@@ -169,11 +184,26 @@ enum GlobMatcher {
     private static func globToRegex(_ glob: String) -> String {
         var out = "^"
         var i = glob.startIndex
+        var depth = 0
+        let maxDepth = 50  // 防止过深的嵌套
 
         func advance(_ n: Int = 1) { i = glob.index(i, offsetBy: n) }
 
         while i < glob.endIndex {
+            guard depth < maxDepth else {
+                Logger.scanner.warning("Glob pattern too deeply nested, truncating")
+                out += ".*"  // 简化为匹配任意内容
+                break
+            }
+
             let ch = glob[i]
+
+            if ch == "/" {
+                depth += 1
+                out += "/"
+                advance()
+                continue
+            }
 
             if ch == "*" {
                 // ** -> .*
