@@ -98,3 +98,10 @@ CLAUDE.md
 
 # Project specific
 project.pbxproj.bak
+
+# Build artifacts
+*.dmg
+dist/
+build_verify/
+sparkle_bin/
+rw.*.dmg
