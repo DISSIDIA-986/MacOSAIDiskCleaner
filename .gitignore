@@ -91,10 +91,35 @@ iOSInjectionProject/
 
 # Mac OS
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.documentrevisions-Driver
 
 # Claude AI generated files (OpenClaw)
 CLAUDE.md
 .claude/
+
+# Security & Credentials (CRITICAL)
+# NEVER commit these files!
+*.pem
+*.key
+*.cer
+*.crt
+*.p12
+*.mobileprovision
+*. ProvisioningProfile
+secrets/
+credentials/
+*.secret
+*.token
+*.password
+*.env
+*.env.local
+*.env.*.local
+openclaw.json
+openclaw.json.*
 
 # Project specific
 project.pbxproj.bak
@@ -105,3 +130,13 @@ dist/
 build_verify/
 sparkle_bin/
 rw.*.dmg
+
+# Temporary files
+*.tmp
+*.temp
+*.cache
+*.swp
+*.swo
+*~.nib
+*.bak
+*.orig
