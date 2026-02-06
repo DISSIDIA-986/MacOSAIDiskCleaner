@@ -16,15 +16,19 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          submodules: recursive
+          submodules: false
 
-      - name: Setup Xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: latest-stable
+      - name: Show Runner Info
+        run: |
+          echo "Runner: ${{ runner.os }}"
+          echo "Ref: ${{ github.ref }}"
+          echo "Sha: ${{ github.sha }}"
 
-      - name: Show Xcode Version
-        run: xcodebuild -version
+      - name: Set Version from Tag
+        run: |
+          APP_VERSION=${GITHUB_REF#refs/tags/v}
+          echo "APP_VERSION=$APP_VERSION" >> $GITHUB_ENV
+          echo "Version: $APP_VERSION"
 
       - name: Install Dependencies
         run: |
@@ -39,9 +43,6 @@ jobs:
           mkdir -p Vendor
           cp -R ../Sparkle Vendor/Sparkle
 
-      - name: Set Version from Tag
-        run: echo "APP_VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
-
       - name: Build Release
         run: |
           xcodebuild -scheme MacOSAIDiskCleaner \
@@ -50,16 +51,16 @@ jobs:
             MARKETING_VERSION=${{ env.APP_VERSION }} \
             CURRENT_PROJECT_VERSION=${{ github.run_number }} \
             clean build \
-            CODE_SIGN_IDENTITY="${{ secrets.APPLE_SIGNING_IDENTITY }}" \
-            CODE_SIGNING_REQUIRED=${{ secrets.APPLE_SIGNING_IDENTITY != '' }} \
-            CODE_SIGNING_ALLOWED=YES \
-            DEVELOPMENT_TEAM="${{ secrets.APPLE_TEAM_ID }}" || echo "Build completed with warnings"
+            CODE_SIGN_IDENTITY="-" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            ENABLE_APP_SANDBOX=NO
 
-      - name: Verify Build Output
+      - name: Verify Build
         run: |
-          APP_PATH="./build/Build/Products/Release/MacOSAIDiskCleaner.app"
+          APP_PATH="./build/Build/Products/Release/MacOSAIDCleaner.app"
           if [ ! -d "$APP_PATH" ]; then
-            echo "❌ Build failed: MacOSAIDiskCleaner.app not found"
+            echo "❌ Build failed"
             exit 1
           fi
           echo "✅ Build successful"
@@ -79,70 +80,50 @@ jobs:
             "dist/MacOSAIDiskCleaner_${{ env.APP_VERSION }}.dmg" \
             "./build/Build/Products/Release/MacOSAIDiskCleaner.app"
 
-      - name: Setup Sparkle Tools
-        run: |
-          curl -L https://github.com/sparkle-project/Sparkle/releases/download/2.6.4/Sparkle-2.6.4.tar.xz -o sparkle.tar.xz
-          tar -xf sparkle.tar.xz bin/generate_appcast
-
-      - name: Generate Appcast
-        if: secrets.SPARKLE_PRIVATE_KEY != ''
-        env:
-          SPARKLE_PRIVATE_KEY: ${{ secrets.SPARKLE_PRIVATE_KEY }}
-        run: |
-          echo "$SPARKLE_PRIVATE_KEY" > sparkle_key.txt
-          ./bin/generate_appcast --ed-key-file sparkle_key.txt dist/
-          rm sparkle_key.txt
-
-      - name: Generate Release Notes
-        id: release_notes
+      - name: Create Release Notes
         run: |
           cat > RELEASE_NOTES.md << 'EOF'
           # MacOSAIDiskCleaner ${{ env.APP_VERSION }}
 
-          ## 🎉 Release Highlights
+          🎉 Major Release with Security Fixes and Improvements
 
-          ### 🔒 Security Fixes
-          - P0-2: Path Traversal protection using canonicalPathKey
-          - P0-3: Permission race condition prevention
+          ## 🔒 Security Fixes (P0)
+          - **P0-2**: Path Traversal protection using canonicalPathKey
+          - **P0-3**: Permission race condition prevention
 
-          ### 🐛 Bug Fixes
-          - P1-4: LLM retry mechanism with exponential backoff
-          - P1-5: AuditLog concurrent write safety
-          - P1-6: GlobMatcher pattern complexity limits
-          - P1-7: StatisticsManager memory leak prevention
+          ## 🐛 Bug Fixes (P1)
+          - **P1-4**: LLM retry mechanism with exponential backoff
+          - **P1-5**: AuditLog concurrent write safety
+          - **P1-6**: GlobMatcher pattern complexity limits
+          - **P1-7**: StatisticsManager memory leak prevention
 
-          ### ✅ Testing
+          ## ✅ Improvements
           - 100% test pass rate (23/23 tests)
           - Fixed StatisticsManager test failures
-
-          ### 📝 Documentation
-          - Comprehensive README.md
-          - Project insights report
-          - Security fixes documentation
+          - Comprehensive documentation (README, insights report)
+          - URL extensions for common operations
+          - Improved logging and error tracking
 
           ## 📦 Downloads
-
-          **macOS 12.0+**: [MacOSAIDiskCleaner_${{ env.APP_VERSION }}.dmg](https://github.com/DISSIDIA-986/MacOSAIDiskCleaner/releases/download/v${{ env.APP_VERSION }}/MacOSAIDiskCleaner_${{ env.APP_VERSION }}.dmg)
+          **macOS 12.0+**: [DMG Installation](https://github.com/DISSIDIA-986/MacOSAIDiskCleaner/releases/download/v${{ env.APP_VERSION }}/MacOSAIDiskCleaner_${{ env.APP_VERSION }}.dmg)
 
           ## 🔐 Verification
-
-          **SHA256**: \`$(shasum -a 256 dist/MacOSAIDiskCleaner_${{ env.APP_VERSION }}.dmg | awk '{print $1}')\`
+          **SHA256**: \`$(shasum -a 256 dist/*.dmg | awk '{print $1}')\`
 
           ---
-
           **Full Changelog**: https://github.com/DISSIDIA-986/MacOSAIDiskCleaner/compare/v0.1.5...v${{ env.APP_VERSION }}
           EOF
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: |
-            dist/*.dmg
-            dist/appcast.xml
+          files: dist/*.dmg
           body_path: RELEASE_NOTES.md
           generate_release_notes: false
           draft: false
           prerelease: false
+          name: ${{ env.APP_VERSION }}
+          tag_name: ${{ github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -152,5 +133,5 @@ jobs:
           name: release-artifacts
           path: |
             dist/*.dmg
-            dist/appcast.xml
+            RELEASE_NOTES.md
           retention-days: 30
